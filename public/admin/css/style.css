@@ -1,0 +1,142 @@
+
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+}
+
+/*.brand-fixed{
+    height: 650px;
+    overflow: auto;
+  scrollbar-color: #585858 #262f3a; 
+}*/
+
+/* .dashboardheight{
+
+    max-height: 550px;
+    overflow: scroll;
+} */
+
+.bg-colormain{
+    background-color: #171f29 !important;
+}
+
+.dashboardbodyboder{
+border-bottom: solid 1px #2f3944;
+}
+
+ul li.dashboardbodyboder:last-child a {
+
+    border-bottom: none;
+}
+
+.dashboardbody{
+    margin: 0px;
+    /* padding: 5px 0px; */
+    display: flex;
+    gap: 20px;
+    transition: all 0.5s ease-in-out;
+    padding-top: 10px;
+    padding-left: 14px;
+}
+
+.dashboardbody i{
+    color: #99A5B5;
+    line-height: 20px;
+}
+
+.dashboardbody:hover i,.dashboardbody:hover p{
+color: white;
+}
+
+.dashboardbody p{
+    color: #99A5B5;
+}
+
+.has-error{border: 1px solid #cf1313;}
+.error-txt{color:#cf1313;}
+
+.modal-dialog{
+
+    position: relative !important;
+    top: 50px !important;
+    left: 0 !important;
+    z-index: 2 !important;
+}
+
+.pdiv{ display: flex; gap: 10px; flex-wrap:wrap ;}
+.box {
+  flex: 1; /* Ensures equal width for all boxes */
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: #333;
+  box-shadow: 6px 4px 6px rgba(0,0,0 ,0.3);
+  width:30px;
+  height: 30px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.box-tick{
+
+    width:30px;
+    height: 30px;
+    border-radius: 10px;
+    position: relative;
+  
+   
+}
+
+.box-tick-color{
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.586) !important;
+    border-radius: 10px;
+ 
+}
+
+.box-size-color{
+
+    display: flex;
+    gap: 10px;
+}
+
+.box-attr p{
+
+    font-size: 14px;
+    font-weight: normal;
+    margin: 0px;
+    padding: 7px 15px;
+ 
+}
+
+.box-attr {
+     /* Ensures equal width for all boxes */
+    padding:0 3px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+   
+  }
+
+  .form-control{
+
+    padding: .375rem .15rem !important;
+  }
