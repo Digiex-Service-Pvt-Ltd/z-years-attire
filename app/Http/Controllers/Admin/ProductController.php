@@ -241,6 +241,21 @@ class ProductController extends Controller
 
     }
 
+    public function delete(Request $request, $id)
+    {
+        try{
+            //soft delete from product, product_varient and varient_attributes tables
+            $product = Product::findorfail($id)->delete();
+
+            return redirect()->route('admin.product.list', $id)
+                                ->with(['toast'=>'1','status'=>'success','title'=>'Product','message'=>'Success! Product deleted successfully.']);
+        }catch (Exception $e) {
+            DB::rollback(); 
+            return back();
+        }
+
+    }
+
     public function manage_varient($id)
     {
         $data = array();
@@ -361,9 +376,7 @@ class ProductController extends Controller
     public function delete_varient(Request $request, $varient_id)
     {
         //delete from product_varient table
-        $product_varient = ProductVarient::findorfail($varient_id);
-        $product_varient->varient_attributes()->delete();
-        $product_varient->delete();
+        $product_varient = ProductVarient::findorfail($varient_id)->delete();
 
         return response()->json(['status'=>'success', 'msg'=>'Varient deleted successfully.']);
     }

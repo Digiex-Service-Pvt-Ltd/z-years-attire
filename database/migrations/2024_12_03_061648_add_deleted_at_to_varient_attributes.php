@@ -34,6 +34,7 @@ return new class extends Migration
     {
         Schema::table('varient_attributes', function (Blueprint $table) {
             $table->dropSoftDeletes(); // Removes the `deleted_at` column
+            $table->dropForeign(['product_varient_id']); // Drops the foreign key
         });
     }
 };

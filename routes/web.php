@@ -95,6 +95,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
             Route::get('edit/{id}', [ProductController::class, 'edit'])->name('edit');
             Route::post('update/{id}', [ProductController::class, 'update'])->name('update');
             Route::post('delete_image', [ProductController::class, 'delete_image'])->name('delete_image');
+            Route::post('delete/{id}', [ProductController::class, 'delete'])->name('delete');
 
             Route::get('varient/{id}', [ProductController::class, 'manage_varient'])->name('varient');
             Route::post('varient/add/{product_id}', [ProductController::class, 'add_varient'])->name('varient.add');

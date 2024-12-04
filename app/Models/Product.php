@@ -38,4 +38,18 @@ class Product extends Model
         return $this->hasMany(ProductVarient::class, 'product_id', 'id');
     }
 
+    protected static function booted(){
+        static::deleting(function ($product){
+            $product->product_varients()->each(function ($variant) {
+                $variant->delete();
+            });
+        });
+
+        static::restoring(function($product){
+            $product->product_varients()->withTrashed()->each(function ($variant) {
+                $variant->restore();
+            });
+        });
+    }
+
 }
