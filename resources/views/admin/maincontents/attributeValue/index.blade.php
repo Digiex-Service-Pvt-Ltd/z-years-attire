@@ -17,7 +17,7 @@
       </div><!-- /.col -->
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="{{ route('admin.attribute.list') }}">Attribute</a></li>
           <li class="breadcrumb-item active">Attribute Values</li>
         </ol>
@@ -80,7 +80,7 @@
       </div>
 
       <div class="col-lg-6">
-        <div class="card">
+        <div class="card card-secondary card-outline">
             <div class="card-header">
                 <div class="card-title">Add Values</div>
             </div>

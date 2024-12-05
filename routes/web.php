@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\AttributeValueController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SettingController;
 
 
 /*
@@ -108,6 +109,9 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
         //Route::resource('pages', PageController::class);
 
+        // admin change password //
+        Route::get('changepassword', [SettingController::class, 'index'])->name('changepassword');
+        Route::post('changepassword', [SettingController::class, 'change_password'])->name('changepassword.submit');
 
         //admin logout
         Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout'); //Submit logout

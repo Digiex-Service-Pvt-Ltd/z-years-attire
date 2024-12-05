@@ -58,7 +58,7 @@
         </div>
         <div class="col-lg-9">
 
-          <div class="card">
+          <div class="card card-secondary card-outline">
             <div class="card-body">
                   <h4>{{ $product['product_name'] }}</h4>
                   <p class="h5"><span class="text-primary"> Price</span> &#8377 {{ $product['price'] }}</p>

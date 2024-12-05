@@ -60,7 +60,7 @@
         </div>
         <div class="col-lg-9">
 
-          <div class="card">
+          <div class="card card-secondary card-outline">
             <div class="card-body">
                
                   <div class="form-group">

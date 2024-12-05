@@ -68,7 +68,7 @@
       </div>
 
       <div class="col-lg-6">
-        <div class="card">
+        <div class="card card-secondary card-outline">
             <div class="card-header">
                 <div class="card-title">Add Attribute</div>
             </div>

@@ -20,9 +20,9 @@
 
         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow" style="left: 0px; right: inherit;">
           <li><a href="" class="dropdown-item">Profile</a></li>
+          <li><a href="{{ route('admin.changepassword') }}" class="dropdown-item">Change Password</a></li>
           <li><a href="{{ route('admin.logout') }}" class="dropdown-item" onclick="event.preventDefault();document.getElementById('form.logout').submit()">Logout </a>
           <form id="form.logout" method="post" action="{{ route('admin.logout') }}">@csrf</form>
-          <li><a href="" class="dropdown-item">Change Password</a></li>
         </li>
         </ul>
       </li>

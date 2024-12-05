@@ -30,7 +30,7 @@
       {{ csrf_field() }}
       <div class="row">
         <div class="col-lg-7">
-          <div class="card">
+          <div class="card card-secondary card-outline">
             <div class="card-header">
                 <div class="card-title">Edit Value</div>
             </div>
