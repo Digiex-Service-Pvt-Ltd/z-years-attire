@@ -100,6 +100,9 @@ Route::prefix('admin')->name('admin.')->group(function(){
             Route::post('varient/add/{product_id}', [ProductController::class, 'add_varient'])->name('varient.add');
             Route::post('varient/update/{varient_id}', [ProductController::class, 'update_varient'])->name('varient.update');
             Route::post('varient/delete/{varient_id}', [ProductController::class, 'delete_varient'])->name('varient.delete');
+
+            Route::get('meta/{id}', [ProductController::class,'manage_meta_details'])->name('meta');
+            Route::post('meta/update/{product_id}', [ProductController::class,'update_meta_details'])->name('meta.update');
         }); 
         //-------------------------------------------------------//
 

@@ -11,6 +11,7 @@ use App\Models\Attribute;
 use App\Models\AttributeValue;
 use App\Models\ProductVarient;
 use App\Models\VarientAttribute;
+use App\Models\MetaManagement;
 
 use DB;
 use Session;
@@ -368,7 +369,58 @@ class ProductController extends Controller
         return response()->json(['status'=>'success', 'msg'=>'Varient deleted successfully.']);
     }
 
+    public function manage_meta_details($id)
+    {
+        $data = array();
+        $data['product'] = Product::findorfail($id)->toArray();
+        
+        $data['meta_details'] = MetaManagement::where(['section'=>'product', 'item_id'=>$id])->first();
+        //dd($data['meta_details']);
+        return view('admin.maincontents.product.meta', $data);
+    }
 
+    public function update_meta_details(Request $request, $product_id)
+    {
+        $meta_id = $request->meta_id;
+        $validator = Validator::make($request->all(), [
+            'meta_title'=>'required',
+        ], []);
+        if($validator->fails()) {
+            return redirect()
+                        ->back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        try {
+        if($meta_id!="") //Record exists, update record
+        {
+            $product_meta = MetaManagement::findorfail($meta_id);
+            $product_meta->meta_title = $request->meta_title;
+            $product_meta->meta_keywords = $request->meta_keywords;
+            $product_meta->meta_description = $request->meta_description;
+            $product_meta->save();            
+        }
+        else //Meta id not exist, insert record
+        {
+            $savedata = MetaManagement::create([
+                'section' => 'product',
+                'item_id' => $product_id,
+                'meta_title' => $request->meta_title,
+                'meta_keywords' => $request->meta_keywords,
+                'meta_description' => $request->meta_description
+            ]);
+
+        }
+        
+        return redirect()->route('admin.product.meta', $product_id)
+                            ->with(['toast'=>'1','status'=>'success','title'=>'Product','message'=>'Success! Meta details updated successfully.']);
+        
+                        }
+        catch(Exception $e){
+            DB::rollback(); 
+            return back();
+        }
+    }
 
     
 
