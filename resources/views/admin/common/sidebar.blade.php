@@ -29,26 +29,26 @@ $user = Auth::guard('admin')->user();
                with font-awesome or any other icon font library -->
           
 
-            <li class="dashboardbodyboder">
-                <a href="{{ route('admin.dashboard') }}" class="dashboardbody">
+            <li class="nav-item dashboardbodyboder">
+                <a href="{{ route('admin.dashboard') }}" class="nav-link dashboardbody {{request()->is('admin/dashboard')?'active': ''}}">
                   <i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p>
                 </a>
             </li>
 
-            <li class="dashboardbodyboder">
-                <a href="{{ route('admin.category.list') }}" class="dashboardbody">
+            <li class="nav-item dashboardbodyboder">
+                <a href="{{ route('admin.category.list') }}" class="nav-link dashboardbody {{request()->is('admin/category')?'active': ''}}">
                   <i class="nav-icon fas fa-tachometer-alt"></i><p>Categories</p>
                 </a>
             </li>
 
-            <li class="dashboardbodyboder">
-                <a href="{{ route('admin.attribute.list') }}" class="dashboardbody">
+            <li class="nav-item dashboardbodyboder">
+                <a href="{{ route('admin.attribute.list') }}" class="nav-link dashboardbody {{request()->is('admin/attribute*')?'active': ''}}">
                   <i class="nav-icon fas fa-tachometer-alt"></i><p>Attributes</p>
                 </a>
             </li>
 
-            <li class="dashboardbodyboder">
-                <a href="{{ route('admin.product.list') }}" class="dashboardbody">
+            <li class="nav-item dashboardbodyboder">
+                <a href="{{ route('admin.product.list') }}" class="nav-link dashboardbody {{request()->is('admin/product*')?'active': ''}}">
                   <i class="nav-icon fas fa-tachometer-alt"></i><p>Products</p>
                 </a>
             </li>
