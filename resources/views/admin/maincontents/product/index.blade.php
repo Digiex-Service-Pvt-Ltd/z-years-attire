@@ -83,7 +83,7 @@
       e.preventDefault();
       Swal.fire({
         title: "Are you sure?",
-        text: "You won't be able to revert this product and it's varients!",
+        text: "You won't be able to revert this product and it's varients and images!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",

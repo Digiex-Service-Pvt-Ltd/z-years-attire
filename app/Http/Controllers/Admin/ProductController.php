@@ -11,6 +11,7 @@ use App\Models\Attribute;
 use App\Models\AttributeValue;
 use App\Models\ProductVarient;
 use App\Models\VarientAttribute;
+use App\Models\ProductImage;
 
 use DB;
 use Session;
@@ -245,7 +246,17 @@ class ProductController extends Controller
     {
         try{
             //soft delete from product, product_varient and varient_attributes tables
-            $product = Product::findorfail($id)->delete();
+            $product = Product::findorfail($id);
+            $product_images = $product->product_images()->get();
+            //Delete all the product images
+            if(!empty($product_images)){
+                foreach($product_images as $image){
+                    unlink(public_path(config('constants.PRODUCT_IMAGE_PATH').$image->image_name));
+                }
+            }
+            $product->product_images()->delete();
+            $product->delete();
+
 
             return redirect()->route('admin.product.list', $id)
                                 ->with(['toast'=>'1','status'=>'success','title'=>'Product','message'=>'Success! Product deleted successfully.']);
@@ -379,6 +390,85 @@ class ProductController extends Controller
         $product_varient = ProductVarient::findorfail($varient_id)->delete();
 
         return response()->json(['status'=>'success', 'msg'=>'Varient deleted successfully.']);
+    }
+
+
+    public function manage_images($product_id, $value_id="")
+    {
+        $data = array();
+        $data['value_id'] = $value_id;
+        $data['product'] = Product::findorfail($product_id);
+        $data['product_color_attributes'] = DB::table('varient_attributes AS VA')
+                                            ->select('VA.attribute_value_id', DB::raw('MAX(AV.value_name) AS value_name'), DB::raw('MAX(AV.hexa_color_code) AS color_code'))
+                                            ->leftJoin('product_varients AS PV', function ($join) use ($product_id) {
+                                                $join->on('VA.product_varient_id', '=', 'PV.id')
+                                                    ->where('PV.product_id', '=', $product_id);
+                                            })
+                                            ->leftJoin('attribute_values AS AV', 'VA.attribute_value_id', '=', 'AV.id')
+                                            ->where('AV.attribute_id', 1)
+                                            ->groupBy('VA.attribute_value_id')
+                                            ->get();
+        if($value_id!="")                    
+            $data["list_images"] = ProductImage::where(['product_id'=>$product_id, 'attribute_value_id'=>$value_id])->get();
+        else
+            $data["list_images"] = ProductImage::where('product_id', $product_id)->get();
+        
+                                          
+        return view('admin.maincontents.product.images', $data);
+        
+    }
+
+    public function image_upload(Request $request, $product_id)
+    {
+        $this->validate($request, [
+            'color_attribute'=>'required',
+            'iamges' => 'required',
+            'iamges.*' => 'required|mimes:jpeg,png,jpg'
+        ]);
+        
+        /* ***************************************** */
+        /* ************** Image Upload ************* */
+        $images = $request->file('iamges');
+        foreach($images as $image)
+        {
+            $manager = new ImageManager(new Driver());
+            $image_name = hexdec( uniqid() ).'.'.$image->getClientOriginalExtension();
+            $img = $manager->read( $image );
+            
+            $img->scaleDown(width: 450);
+            $img->scaleDown(height: 600);
+
+            $image_path = config('constants.PRODUCT_IMAGE_PATH');
+            $img->toJpeg(80)->save( public_path($image_path.$image_name) );
+
+            //save records into product_images table
+            ProductImage::create([
+                'product_id' => $product_id,
+                'attribute_value_id' => $request->color_attribute,
+                'image_name' => $image_name,
+                'sort_order' => 0
+            ]);
+        }    
+       
+        /* ***************************************** */
+        /* ***************************************** */
+
+        return redirect()->route('admin.product.images', $product_id)
+                                ->with(['toast'=>'1','status'=>'success','title'=>'Product','message'=>'Success! Images Uploaded successfully.']);
+
+
+    }
+
+    public function image_delete(Request $request)
+    {
+        $image_id = $request->imageId;
+        $product_image = ProductImage::findorfail($image_id);
+        //unlink image
+        unlink(public_path(config('constants.PRODUCT_IMAGE_PATH').$product_image->image_name));
+        $product_image->delete();
+
+        return response()->json(['status'=>'success', 'msg'=>'Image deleted successfully.']);
+        
     }
 
 

@@ -35,7 +35,7 @@
             <div class="list-group">
                 <a href="{{ route('admin.product.edit', $product->id) }}" class="list-group-item list-group-item-action">Edit Product</a>
                 <a href="{{ route('admin.product.varient', $product->id) }}" class="list-group-item list-group-item-action active" aria-current="true" disabled>Manage Varients</a>
-                <a href="javascript:void(0)" class="list-group-item list-group-item-action">Upload Images</a>
+                <a href="{{ route('admin.product.images', $product->id) }}" class="list-group-item list-group-item-action">Upload Images</a>
                 <a href="javascript:void(0)" class="list-group-item list-group-item-action">Manage Meta Details</a>
             </div>
            

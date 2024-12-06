@@ -140,3 +140,59 @@ color: white;
 
     padding: .375rem .15rem !important;
   }
+
+  .image-container {
+    width: 180px; /* Fixed width */
+    height: 250px; /* Fixed height */
+    border: 1px solid #ccc;
+    overflow: hidden; /* Ensure content does not overflow */
+    display: flex;
+    justify-content: center; /* Center the image horizontally */
+    align-items: center; /* Center the image vertically */
+  }
+  
+  .responsive-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fills the container while maintaining aspect ratio */
+    object-position: center; /* Center the image within the container */
+  }
+
+  .card-header{
+
+    display: flex !important;
+    justify-content: space-between !important;
+  }
+
+
+  .card-change1{
+
+    width: 50%;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .card-change{
+
+    margin: opx;
+    padding: 0px;
+
+  }
+
+  .card-mychange{
+
+    width: 50%;
+    display: block;
+  }
+
+  .card-mychangeright{
+
+    display: flex;
+    justify-content: right;
+    gap: 20px;
+  }
+
+  .card-mychangeright p{
+
+    margin-top: 6px;
+  }

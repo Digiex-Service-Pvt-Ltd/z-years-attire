@@ -14,8 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('product_images', function (Blueprint $table) {
-            $table->integer('attribute_value_id')->after('product_id')->nullable();
-            $table->timestamps();
+            // Adding the foreign key constraint
+            $table->foreign('product_id')
+                  ->references('id')
+                  ->on('products')
+                  ->onDelete('cascade'); // Set action on delete
         });
     }
 
@@ -27,7 +30,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('product_images', function (Blueprint $table) {
-            //$table->dropSoftDeletes(); // Removes the `deleted_at` column
+            $table->dropForeign(['product_id']); // Drops the foreign key
         });
     }
 };
