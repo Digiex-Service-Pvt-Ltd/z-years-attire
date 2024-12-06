@@ -112,6 +112,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
             Route::post('images/delete', [ProductController::class, 'image_delete'])->name('images.delete'); 
 
 
+            //Routes for product meta manegment 
             Route::get('meta/{id}', [ProductController::class,'manage_meta_details'])->name('meta');
             Route::post('meta/update/{product_id}', [ProductController::class,'update_meta_details'])->name('meta.update');
         }); 
