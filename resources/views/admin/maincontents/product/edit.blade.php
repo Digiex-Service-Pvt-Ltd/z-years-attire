@@ -36,7 +36,7 @@
             <div class="list-group">
                 <a href="{{ route('admin.product.edit', $product->id) }}" class="list-group-item list-group-item-action active" aria-current="true" disabled>Edit Product</a>
                 <a href="{{ route('admin.product.varient', $product->id) }}" class="list-group-item list-group-item-action">Manage Varients</a>
-                <a href="javascript:void(0)" class="list-group-item list-group-item-action">Upload Images</a>
+                <a href="{{ route('admin.product.images', $product->id) }}" class="list-group-item list-group-item-action">Upload Images</a>
                 <a href="{{ route('admin.product.meta', $product->id)}}" class="list-group-item list-group-item-action">Manage Meta Details</a>
             </div>
            
@@ -44,10 +44,10 @@
           <div class="col-lg-12 pt-3">
             <div class="card">
               <div class="card-body">
-                <div class="col-md-12" id="ingsec">
+                <div class="col-md-12 text-center" id="ingsec">
                     @if($product->image!="")
                         <img src="{{ asset( config('constants.PRODUCT_IMAGE_PATH').$product->image ) }}" alt="{{ $product->product_name }}" class="img-thumbnail">
-                        <button type="button" class="btn btn-primary" id="dtimg"><i class="fa fa-times"></i> Remove Image</button>
+                        <button type="button" class="btn btn-outline-danger mt-2" id="dtimg"><i class="fa fa-trash"></i> Remove Image</button>
                         @else
                         <img src="{{ asset('admin/img/no-image.jpg') }}" alt="{{ $product->product_name }}" class="img-thumbnail">
                     @endif

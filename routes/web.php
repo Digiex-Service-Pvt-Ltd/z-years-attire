@@ -90,17 +90,27 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
         //------------- Products :: route defined ---------------//
         Route::prefix('product')->name('product.')->group(function(){
+            //Routes for main product
             Route::get('/', [ProductController::class, 'index'])->name('list');
             Route::get('create/main', [ProductController::class, 'create_main'])->name('create.main');
             Route::post('create/main', [ProductController::class, 'store_main_product'])->name('store.main');
             Route::get('edit/{id}', [ProductController::class, 'edit'])->name('edit');
             Route::post('update/{id}', [ProductController::class, 'update'])->name('update');
             Route::post('delete_image', [ProductController::class, 'delete_image'])->name('delete_image');
+            Route::post('delete/{id}', [ProductController::class, 'delete'])->name('delete');
 
+            //Routes for varient product
             Route::get('varient/{id}', [ProductController::class, 'manage_varient'])->name('varient');
             Route::post('varient/add/{product_id}', [ProductController::class, 'add_varient'])->name('varient.add');
             Route::post('varient/update/{varient_id}', [ProductController::class, 'update_varient'])->name('varient.update');
             Route::post('varient/delete/{varient_id}', [ProductController::class, 'delete_varient'])->name('varient.delete');
+
+            //Routes for product images
+            Route::get('images/{product_id}', [ProductController::class, 'manage_images'])->name('images');
+            Route::get('images/{product_id}/{value_id}', [ProductController::class, 'manage_images'])->name('images.value'); 
+            Route::post('images/upload/{product_id}', [ProductController::class, 'image_upload'])->name('images.upload'); 
+            Route::post('images/delete', [ProductController::class, 'image_delete'])->name('images.delete'); 
+
 
             Route::get('meta/{id}', [ProductController::class,'manage_meta_details'])->name('meta');
             Route::post('meta/update/{product_id}', [ProductController::class,'update_meta_details'])->name('meta.update');

@@ -54,7 +54,8 @@
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                           <a class="dropdown-item" href="{{ route('admin.product.edit', $product->id) }}">Edit</a>
-                          {{-- <a class="dropdown-item delRow" href="javascript:void(0)" data-url="" >Delete</a> --}}
+                          <a class="dropdown-item delRow" pId="{{ $product->id }}">Delete</a>
+                          <form id="frdt{{ $product->id }}" action="{{ route('admin.product.delete', $product->id) }}" method="POST">@csrf</form>
                         </div>
                       </div>
                     </td>
@@ -77,14 +78,12 @@
 </div>
 <!-- /.content -->   
 @push('PAGE_ASSETS_JS')
-  {{-- <script>
+  <script>
     $(document).on('click', '.delRow', function(e){
-      let obj = $(this);
-      let rowURL = obj.data('url');
-
+      e.preventDefault();
       Swal.fire({
         title: "Are you sure?",
-        text: "You won't be able to revert this!",
+        text: "You won't be able to revert this product and it's varients and images!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -93,30 +92,16 @@
       }).then( (result)=>{
 
         if(result.isConfirmed) {
-             
-              $.ajax({
-                    url: rowURL,
-                    type: 'DELETE',
-                    dataType: 'json',
-                    success: function(response) {
-                      if(response.status == "success"){
-                        toastr.success('Page Management', response.msg);
-                        window.location.href = "{{ url('admin/attributes')  }}";
-                      }
-                      else{
-                        toastr.error('Page Management', response.msg);
-                      }
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
+
+          let obj = $(this);
+          let productId = obj.attr('pid');
+          $('#frdt'+productId).submit();   
         }      
 
 
       } );
       
     })
-  </script> --}}
+  </script>
 @endpush    
 @endsection

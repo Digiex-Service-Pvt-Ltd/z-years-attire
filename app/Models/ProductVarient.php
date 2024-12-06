@@ -31,4 +31,19 @@ class ProductVarient extends Model
         return $this->hasMany(VarientAttribute::class, 'product_varient_id', 'id');
     }
 
+    protected static function booted()
+    {
+        static::deleting(function($variant){
+            $variant->varient_attributes()->each(function ($attribute) {
+                $attribute->delete();
+            });
+        });
+
+        static::restoring(function($variant){
+            $variant->varient_attributes()->withTrashed()->each(function ($attribute) {
+                $attribute->restore();
+            });
+        });
+    }
+
 }
