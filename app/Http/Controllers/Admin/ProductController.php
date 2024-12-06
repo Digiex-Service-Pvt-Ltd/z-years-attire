@@ -413,7 +413,7 @@ class ProductController extends Controller
         }
         
         return redirect()->route('admin.product.meta', $product_id)
-            ->with(['toast'=>'1','status'=>'success','title'=>'Product','message'=>'Success! Meta details updated successfully.']);
+            ->with(['toast'=>'1','status'=>'success','title'=>'Meta Management','message'=>'Success! Meta details updated successfully.']);
             }
         catch(Exception $e){
             DB::rollback(); 

@@ -20,7 +20,7 @@ class SettingController extends Controller
 
         $request->validate([
             'old_password' => 'required|string|min:6',
-            'new_password' => 'required|string|min:6|confirmed',
+            'new_password' => 'required|string|min:6|max:15|confirmed',
         ]);
 
         // Old Password Matched //
@@ -31,9 +31,9 @@ class SettingController extends Controller
                 'password' => Hash::make($request->new_password)
             ]);
             return redirect()->route('admin.changepassword')
-        ->with(['toast'=>'1','status'=>'success','title'=>'Product','message'=>'Success! Password updated successfully.']);
+        ->with(['toast'=>'1','status'=>'success','title'=>'Password Change','message'=>'Success! Password updated successfully.']);
         }else{
-            return redirect()->back()->with("message","Old Password Doesn't match!");
+            return redirect()->back()->with(['toast'=>'1','status'=>'error','title'=>'Password Not Match','message'=>"Old Password Doesn't Match!"]);
         }
     }
 }
