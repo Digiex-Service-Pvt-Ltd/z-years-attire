@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\AttributeValueController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\ShopController;
 
 
 /*
@@ -24,9 +25,8 @@ use App\Http\Controllers\Admin\SettingController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/about', [HomeController::class, 'aboutus']);
-Route::get('/contact', [HomeController::class, 'contactus']);
-Route::post('/contact', [HomeController::class, 'submit_contact']);
+Route::get('category/{category_slug}', [ShopController::class, 'index']);
+
 
 //Routes for user
 Route::prefix('user')->name('user.')->group(function(){

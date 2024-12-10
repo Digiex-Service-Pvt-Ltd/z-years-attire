@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use DB;
 
 class Category extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $table = 'categories';
     protected $primaryKey = 'id';
 
@@ -85,10 +87,12 @@ class Category extends Model
         $results = DB::select("SELECT t1.id,
                                 t1.parent_id,
                                 t1.category_name as text,
-                                t1.sort_order
+                                t1.sort_order,
+                                t1.deleted_at
                                 FROM categories as t1 
-                    JOIN tmp_menuid as t2 ON t1.id = t2.menuid ORDER BY t1.sort_order");
-
+                    JOIN tmp_menuid as t2 ON t1.id = t2.menuid AND t1.deleted_at IS NULL 
+                    ORDER BY t1.sort_order");
+        
         return $results;
 
     }
@@ -137,12 +141,13 @@ class Category extends Model
             if(is_array($idsArr) && !empty($idsArr)){
                 foreach($idsArr as $id){
                     //unlink category image file
-                    $dtls = Category::find($id, ['image']);
+                    $catObj = new Category;
+                    $category = $catObj::findorfail($id);
                     $image_path = config('constants.CATEGORY_IMAGE_PATH');
-                    if($dtls->image != ""){
-                        unlink(public_path($image_path.$dtls->image));
+                    if($category->image != ""){
+                        unlink(public_path($image_path.$category->image));
                     }
-                    Category::where('id', $id)->delete();
+                    $category->delete();
                     //Delete records from meta table
                     DB::table('meta_management')
                         ->where(['section'=>'category', 'item_id'=>$id])

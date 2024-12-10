@@ -251,7 +251,7 @@ class CategoryController extends Controller
             $getAllIds = $this->catMdlObj->getAllChildIds($cat_id);
             if(!empty($getAllIds)) //Child menu exists under this selected menu
             {
-                array_push($getAllIds, $cat_id); //Push the selected id into the array
+                array_push($getAllIds, (int) $cat_id); //Push the selected id into the array
                 $this->catMdlObj->delete_category($getAllIds);
             }
             else //Submenu does not exists

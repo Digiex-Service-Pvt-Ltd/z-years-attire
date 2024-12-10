@@ -1,37 +1,157 @@
-
-<div class="container d-flex align-items-center">
-
-    <h1 class="logo me-auto"><a href="index.html"><span>Com</span>pany</a></h1>
-    <!-- Uncomment below if you prefer to use an image logo -->
-    <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-
-    <nav id="navbar" class="navbar order-last order-lg-0">
-    <ul>
-        <li><a href="{{ URL('/') }}" class="active">Home</a></li>
-
-        <li class="dropdown"><a href="#"><span>About</span> <i class="bi bi-chevron-down"></i></a>
-        <ul>
-            <li><a href="{{ URL('about') }}">About Us</a></li>
-            <li><a href="team.html">Testimonials</a></li>
-            <li><a href="{{ URL('user.login') }}">Login</a></li>
-        </ul>
-        </li>
-
-        <li><a href="services.html">Services</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="pricing.html">Pricing</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="{{ URL('contact') }}">Contact</a></li>
-
-    </ul>
-    <i class="bi bi-list mobile-nav-toggle"></i>
-    </nav><!-- .navbar -->
-
-    <div class="header-social-links d-flex">
-    <a href="#" class="twitter"><i class="bu bi-twitter"></i></a>
-    <a href="#" class="facebook"><i class="bu bi-facebook"></i></a>
-    <a href="#" class="instagram"><i class="bu bi-instagram"></i></a>
-    <a href="#" class="linkedin"><i class="bu bi-linkedin"></i></i></a>
+<!-------------------------headertop--------------------->
+<div class="headertopbody">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+            <div class="headertopleft dis-none">
+                <div class="headertoplefticon">
+                 <div class="headertoplefticon">
+                    <i class="fa-solid fa-phone"></i>
+                 </div>
+                 <div class="headertopleftcall">
+                    <p>Call :<span><a href="tel:+91 78906 09412">+91 78906 09412</a></span></p>
+                 </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="headertopright">
+                    <div class="headertoprightsocial">
+                        <ul>
+                            <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-x-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-pinterest-p"></i></a></li>
+                            <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="headertoprightuser">
+                        <i class="fa-regular fa-user"></i>
+                        <p>login</p>
+    
+                        <div class="headertoprightuserdropdown">
+                            <div class="loginboxmaintext">
+                                <h5>Welcome</h5>
+                                <p>To access account and manage orders</p>
+                            </div>
+                            <div class="loginboxmainbutton">
+                            <a href="">    <button type="button" class="btn btn-outline-light">LogIn / SighnUp</button></a>
+                            </div>
+                            <div class="loginboxmainorders">
+                                <ul>
+                                    <li><a href="">Oders </a></li>
+                                    <li ><a href="">WishList </a></li>
+                                    <li><a href="">Contact Us </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+    
+                    
+                </div>
+            </div>
+        </div>
     </div>
+    </div>
+    
+    
+    <!-------------------------headertopend--------------------->
+    
+    <!----------------------------logobox------------------------->
+    
+    <section>
+    <div class="logobox ">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                   
+                        <div class="searchbutton dis-none">
+                            <button type="button" class="btn btn-light">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                            <input type="text" placeholder="search Product ...">
+                        </div>
+          
+                </div>
+                <div class="col-lg-4">
+                    <div class="mainlogo dis-none">
+                        <a href="{{ URL('/') }}"><img src="{{ asset('img/logo1.png') }}" alt="zyears" class="img-fluid" style="width: 120px;"></a>
+                    </div>
+                </div>
+                <div class="col-lg-4">
 
-</div>
+                    <div class="reslogo">
+                        <a href="{{ URL('/') }}"><img  src="{{ asset('img/logo1.png') }}" alt="logo" class="img-fluid" style="width: 80px;"></a>
+                    </div>
+    
+                    <div class="wishlistbox">
+                        <div class="wishlistboxmain">
+                            <div class="wishlistboxmainicon">
+                                <i class="fa-regular fa-heart"></i>
+                                <div class="wishlistboxmainiconbox">
+                                    <p>3</p>
+                                </div>
+                            </div>
+                          
+                            <div class="wishlistboxmainiconboxtext">
+                                <p>My WishList</p>
+                            </div>
+                        </div>
+                        <div class="wishlistboxmain wishlistdropdown">
+                            <div class="wishlistboxmainicon">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <div class="wishlistboxmainiconbox">
+                                    <p>2</p>
+                                </div>
+                            </div>
+                            <div class="wishlistboxmainiconboxtext">
+                                <p>164.00</p>
+                            </div>
+    
+                            <div class="wishlistdropdownmain">
+                                <div class="wishlistdropdownmain1">
+                                    <div class="wishlistdropdownmain1width1">
+                                        <h5><a href=""> knitted elastic runner shoes</a></h5>
+                                        <p>1 x 84.00 </p>
+                                    </div>
+                                    <div class="wishlistdropdownmain1width2">
+                                        <img src="{{ asset('img/product-1.jpg') }}" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                                <div class="wishlistdropdownmain1 mt-10">
+                                    <div class="wishlistdropdownmain1width1">
+                                        <h5><a href=""> Blue utility pinafore denim dress</a></h5>
+                                        <p>1 x $76.00 </p>
+                                    </div>
+                                    <div class="wishlistdropdownmain1width2">
+                                        <img src="{{ asset('img/product-2.jpg') }}" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                                <div class="wishlistdropdownmain1">
+                                    <div class="wishlistdropdownmain1width3">
+                                        <h5>Total</h5>
+                                    </div>
+                                    <div class="wishlistdropdownmain1width3">
+                                        <h5 class="text-end"><i class="fa-solid fa-indian-rupee-sign"></i> 4000</h5>
+                                    </div>
+                                </div>
+                                <div class="wishlistdropdownmain1widthbox">
+                                    <div class="wishlistdropdownmain1width3">
+                                      <a href="">  <button type="button" class="btn btn-warning px-4">View Cart</button></a>
+                                    </div>
+                                    <div class="wishlistdropdownmain1width3change text-end">
+                                        <button type="button" class="btn btn-warning">CheckOut</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    
+    <!----------------------------logoboxend------------------------->
