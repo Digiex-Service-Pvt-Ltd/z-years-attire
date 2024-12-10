@@ -86,9 +86,10 @@
                     <textarea name="meta_description" class="form-control" cols="5" rows="10">{{!empty($meta_details['meta_description'])? $meta_details['meta_description']: old('meta_description')}}</textarea>
                   </div>
                     
-
-                  <button class="btn btn-primary" type="submit" name="submit" value="submit"><i class="fa fa-check"></i> Submit</button>
-                
+                  <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary" type="submit" name="submit" value="submit"><i class="fa fa-check"></i>&nbsp; Submit</button>
+                    <a href="{{ route('admin.product.list')}}" class="btn btn-secondary ml-2"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp; Back To List</a>
+                  </div>                
             </div>
           </div>
 

@@ -46,21 +46,30 @@
               <div class="card-body">
                 <div class="col-md-12 text-center" id="statusec">
                     @if($total_varient > 0)
-                    <div class="alert alert-secondary" role="alert">
-                      <p><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-info-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg>
-                      Publish the product to display in the listing page.</p>
-                    </div>
+                    @if($product->status=="0")
+                    <span class="text-info">
+                      <p>
+                      <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-info-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg> 
+                       Publish the product to display in the listing page.
+                      </p>
+                    </span>
+                    @else
+                    <span class="text-success">
+                      <p><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-circle-check"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 12l2 2l4 -4" /></svg>
+                      Product Published</p>
+                    </span>
+                    @endif
                     <select class="custom-select" id="slstatus">
-                      <option value="0" {{ ($product->status=="0") ? 'selected="selected"' : "" }}>Un-Publish</option>
-                      <option value="1" {{ ($product->status=="1") ? 'selected="selected"' : "" }}>Publish</option>
+                      <option value="0" {{ ($product->status=="0") ? 'selected="selected"' : "" }}>Unpublished</option>
+                      <option value="1" {{ ($product->status=="1") ? 'selected="selected"' : "" }}>Published</option>
                     </select>
                         @else
-                      <div class="alert alert-warning" role="alert">
+                      <div class="text-warning">
                         <p><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-alert-triangle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v4" /><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /><path d="M12 16h.01" /></svg>
                           Please add Varient To Publish Your Product.</p>
                       </div>
                       <select class="custom-select" disabled>
-                        <option selected>Un-Publish</option>
+                        <option selected>Unpublished</option>
                       </select>
                     @endif
                 </div>
@@ -150,8 +159,12 @@
                   </div>
                     
 
-                  <button class="btn btn-primary" type="submit" name="submit" value="submit"><i class="fa fa-check"></i> Submit</button>
-                
+
+                  <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary" type="submit" name="submit" value="submit"><i class="fa fa-check"></i>&nbsp; Submit</button>
+                    <a href="{{ route('admin.product.list')}}" class="btn btn-secondary ml-2"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp; Back To List</a>
+                  </div> 
+
             </div>
           </div>
 
@@ -238,6 +251,11 @@
                 success: function (result) {
                     if(result.status=="success"){
                       toastr.success('Success', result.message);
+                      // Reload the page after 1.5 second to give the user time to see the toastr notification
+                      setTimeout(function () {
+                       location.reload();
+                      }, 1500);
+
                     }else{
                       toastr.success('error', 'Status Not Change');
                     }
@@ -248,6 +266,7 @@
                 });
         });
   
+
   });
   </script>
 
