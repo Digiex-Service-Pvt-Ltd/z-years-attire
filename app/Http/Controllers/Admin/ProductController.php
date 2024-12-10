@@ -37,7 +37,7 @@ class ProductController extends Controller
 
         $data = array();
         $data['products'] = Product::with('product_categories.categories')->get();
-        dd($data['products']);
+        // dd($data['products']);
 
         return view('admin.maincontents.product.index', $data);
     }
