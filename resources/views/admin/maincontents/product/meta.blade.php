@@ -60,7 +60,12 @@
 
           <div class="card card-secondary card-outline">
             <div class="card-body">
-                  <h4>{{ $product['product_name'] }}</h4>
+                  @if($product["status"]==1)
+                  <span class="badge badge-success user-select-none" data-toggle="tooltip" data-placement="left" title="Product is already Published">Published</span>
+                   @else
+                   <span class="badge badge-secondary user-select-none" data-toggle="tooltip" data-placement="left" title="Please Published The Product ">Unpublished</span>
+                  @endif
+                  <h4 class="pt-2">{{ $product['product_name'] }}</h4>
                   <p class="h5"><span class="text-primary"> Price</span> &#8377 {{ $product['price'] }}</p>
                   <div class="form-group mt-4">
                     <label for="ptitle">Meta Title <span class="required" aria-required="true"> * </span></label>

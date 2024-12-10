@@ -38,6 +38,9 @@
               <tr>
                 <th scope="col" class="text-center">#</th>
                 <th scope="col">Product Name</th>
+                <th scope="col">All Category</th>
+                <th scope="col" class="text-center">Unit Price</th>
+                <th scope="col" class="text-center">Status</th>
                 <th scope="col" class="text-center">Action</th>
               </tr>
             </thead>
@@ -48,6 +51,15 @@
                   <tr>
                     <th scope="row" class="text-center">{{ $sl_no }}</th>
                     <td>{{ $product->product_name }}</td>
+                    <td>{{ $product->price }}</td>
+                    <td class="text-center">₹ {{ $product->price }}</td>
+                    <td class="text-center">
+                      @if($product->status=="1")
+                       <p class="text-success font-weight-bold user-select-none">Published</p>
+                      @else
+                       <p class="text-secondary font-weight-bold user-select-none">Unpublished</p>
+                      @endif
+                    </td>
                     <td class="text-center">
                       <div class="dropdown show">
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>

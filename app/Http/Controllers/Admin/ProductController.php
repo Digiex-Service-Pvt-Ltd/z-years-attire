@@ -36,7 +36,8 @@ class ProductController extends Controller
     public function index(){
 
         $data = array();
-        $data['products'] = Product::get();
+        $data['products'] = Product::with('product_categories.categories')->get();
+        dd($data['products']);
 
         return view('admin.maincontents.product.index', $data);
     }
@@ -135,6 +136,9 @@ class ProductController extends Controller
         $data['categories'] = Category::get();
         $data["product"] = Product::with('product_categories')->find($id);
 
+        $product = Product::with('product_varients')->find($id);
+        $data['total_varient'] = $product->product_varients()->count();
+
         $data['assign_categories'] = $data["product"]->product_categories->pluck('category_id')->toArray();
     
         return view('admin.maincontents.product.edit', $data);
@@ -224,6 +228,18 @@ class ProductController extends Controller
         }
 
 
+    }
+
+    public function change_status(Request $request){
+        $product_id = $request->pId;
+        $status = $request->sVal;
+
+        $product = Product::findorfail($product_id);
+        $product->status = $status;
+        $product->save();
+
+        return response()->json(['status'=>'success', 'message'=>'Status Updated successfully.']);
+        
     }
 
     public function delete_image(Request $request){

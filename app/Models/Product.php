@@ -28,6 +28,11 @@ class Product extends Model
                             'status' 
                             ];
 
+    // public function product_categories()
+    // {
+    //     return $this->belongsToMany(ProductCategory::class);
+    // }
+
     public function product_categories()
     {
         return $this->hasMany(ProductCategory::class);

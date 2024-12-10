@@ -44,6 +44,30 @@
           <div class="col-lg-12 pt-3">
             <div class="card">
               <div class="card-body">
+                <div class="col-md-12 text-center" id="statusec">
+                    @if($total_varient > 0)
+                    <div class="alert alert-secondary" role="alert">
+                      <p><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-info-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" /><path d="M12 9h.01" /><path d="M11 12h1v4h1" /></svg>
+                      Publish the product to display in the listing page.</p>
+                    </div>
+                    <select class="custom-select" id="slstatus">
+                      <option value="0" {{ ($product->status=="0") ? 'selected="selected"' : "" }}>Un-Publish</option>
+                      <option value="1" {{ ($product->status=="1") ? 'selected="selected"' : "" }}>Publish</option>
+                    </select>
+                        @else
+                      <div class="alert alert-warning" role="alert">
+                        <p><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-alert-triangle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 9v4" /><path d="M10.363 3.591l-8.106 13.534a1.914 1.914 0 0 0 1.636 2.871h16.214a1.914 1.914 0 0 0 1.636 -2.87l-8.106 -13.536a1.914 1.914 0 0 0 -3.274 0z" /><path d="M12 16h.01" /></svg>
+                          Please add Varient To Publish Your Product.</p>
+                      </div>
+                      <select class="custom-select" disabled>
+                        <option selected>Un-Publish</option>
+                      </select>
+                    @endif
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
                 <div class="col-md-12 text-center" id="ingsec">
                     @if($product->image!="")
                         <img src="{{ asset( config('constants.PRODUCT_IMAGE_PATH').$product->image ) }}" alt="{{ $product->product_name }}" class="img-thumbnail">
@@ -62,8 +86,13 @@
 
           <div class="card card-secondary card-outline">
             <div class="card-body">
-               
-                  <div class="form-group">
+                  @if($product->status=="1")
+                   <span class="badge badge-success user-select-none" data-toggle="tooltip" data-placement="left" title="Product is already Published">Published</span>
+                   @else
+                   <span class="badge badge-secondary user-select-none" data-toggle="tooltip" data-placement="left" title="Please Published The Product ">Unpublished</span>
+                  @endif
+
+                  <div class="form-group pt-2">
                     <label for="ptitle">Product Name <span class="required" aria-required="true"> * </span></label>
                     <input type="text" class="form-control {{($errors->first('product_name'))?'has-error':''}}" id="ptitle" name="product_name" value="{{ $product->product_name }}" placeholder="Enter a name of the product.">
                     <span class="error-txt">{{$errors->first('product_name')}}</span>
@@ -195,9 +224,37 @@
               });
   
      });
+
+     //Change Status
+
+     $('#slstatus').on('change', function () {
+            let productId = {{ $product->id }};
+            let statusVal = $(this).val();
+            $.ajax({
+                 url: '{{route("admin.product.change_status")}}',
+                 type: "POST",
+                 data: {pId: productId, sVal: statusVal},
+                 dataType: 'json',
+                success: function (result) {
+                    if(result.status=="success"){
+                      toastr.success('Success', result.message);
+                    }else{
+                      toastr.success('error', 'Status Not Change');
+                    }
+                },
+                headers: {
+                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+                });
+        });
   
   });
   </script>
+
+  <script>
+
+  </script>
 @endpush
+
     
 @endsection

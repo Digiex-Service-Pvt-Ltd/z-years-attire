@@ -19,7 +19,7 @@
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
           <li class="breadcrumb-item"><a href="{{ route('admin.product.list') }}">Product</a></li>
-          <li class="breadcrumb-item active">Varient</li>
+          <li class="breadcrumb-item active">Images</li>
         </ol>
       </div><!-- /.col -->
     </div><!-- /.row -->
@@ -64,6 +64,11 @@
               <h4>{{ $product->product_name }}</h4>
               <p class="h5"><span class="text-primary"> Price</span> &#8377 {{ $product->price }}</p>
 
+                  @if($product->status=="1")
+                  <span class="badge badge-success user-select-none" data-toggle="tooltip" data-placement="left" title="Product is already Published">Published</span>
+                   @else
+                   <span class="badge badge-secondary user-select-none" data-toggle="tooltip" data-placement="left" title="Please Published The Product ">Unpublished</span>
+                  @endif
               
                   <div class="card bg-light mt-5">
                     <div class="card-header">
@@ -113,7 +118,7 @@
                                     </div>
 
                                     <div class="form-group col-md-4 mt-4">
-                                        <button class="btn btn-primary" type="submit" name="submit" value="submit" fdprocessedid="5gs6htr"><i class="fa fa-check"></i> Upload Images</button>
+                                        <button class="btn btn-primary mt-2" type="submit" name="submit" value="submit" fdprocessedid="5gs6htr"><i class="fa fa-check"></i> Upload Images</button>
                                     </div>
                                 </form>
                             </div> 

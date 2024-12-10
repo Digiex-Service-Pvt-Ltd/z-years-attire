@@ -60,10 +60,14 @@
 
           <div class="card card-secondary card-outline">
             <div class="card-body">
-                  
               <h4>{{ $product->product_name }}</h4>
               <p class="h5"><span class="text-primary"> Price</span> &#8377 {{ $product->price }}</p>
 
+              @if($product->status=="1")
+              <span class="badge badge-success user-select-none" data-toggle="tooltip" data-placement="left" title="Product is already Published">Published</span>
+              @else
+              <span class="badge badge-secondary user-select-none" data-toggle="tooltip" data-placement="left" title="Please Published The Product ">Unpublished</span>
+             @endif
               
                   <div class="card bg-light mt-5 ">
                     <div class="card-header">
