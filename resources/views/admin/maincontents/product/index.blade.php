@@ -38,7 +38,7 @@
               <tr>
                 <th scope="col" class="text-center">#</th>
                 <th scope="col">Product Name</th>
-                <th scope="col">All Category</th>
+                <th scope="col">Category</th>
                 <th scope="col" class="text-center">Unit Price</th>
                 <th scope="col" class="text-center">Status</th>
                 <th scope="col" class="text-center">Action</th>
@@ -51,7 +51,16 @@
                   <tr>
                     <th scope="row" class="text-center">{{ $sl_no }}</th>
                     <td>{{ $product->product_name }}</td>
-                    <td>{{ $product->price }}</td>
+                    <td>
+
+                      @if(!empty($product->product_categories))
+                        @foreach($product->product_categories as $product_category)
+                        <span class="pl-2">{{ $product_category->categories->category_name }}</span>
+                        @endforeach
+                      @else
+                      <p>N/A</p>
+                      @endif
+                    </td>
                     <td class="text-center">₹ {{ $product->price }}</td>
                     <td class="text-center">
                       @if($product->status=="1")
@@ -86,6 +95,10 @@
 
     </div>
     <!-- /.row -->
+    <!-- Display pagination links -->
+    <div class="d-flex justify-content-center">
+      {{ $products->links() }}
+    </div>
   </div><!-- /.container-fluid -->
 </div>
 <!-- /.content -->   
@@ -115,5 +128,14 @@
       
     })
   </script>
+
+<style>
+  .w-5{
+    display: none
+  }
+  .w-4{
+    display:none
+  }
+</style>
 @endpush    
 @endsection

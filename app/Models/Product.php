@@ -35,7 +35,7 @@ class Product extends Model
 
     public function product_categories()
     {
-        return $this->hasMany(ProductCategory::class);
+        return $this->hasMany(ProductCategory::class, 'product_id', 'id');
     }
 
     public function product_varients()

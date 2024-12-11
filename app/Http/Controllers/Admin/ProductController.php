@@ -36,8 +36,8 @@ class ProductController extends Controller
     public function index(){
 
         $data = array();
-        $data['products'] = Product::with('product_categories.categories')->get();
-        // dd($data['products']);
+        $data['products'] = Product::with('product_categories.categories')->paginate(1);
+       
 
         return view('admin.maincontents.product.index', $data);
     }
@@ -272,6 +272,7 @@ class ProductController extends Controller
                 }
             }
             $product->product_images()->delete();
+            $product->product_categories()->delete();
             $product->delete();
 
 
