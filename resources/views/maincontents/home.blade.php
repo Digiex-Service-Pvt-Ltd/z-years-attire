@@ -1,6 +1,9 @@
 @extends('../layouts.home_layout')
 
 @section('maincontent')
+
+<!-- include banner -->
+@include('common.banner')
 <!----------------------------shop----------------------------->
 <section class="mt-30">
   <div class="container">
@@ -10,7 +13,7 @@
                   <div class="shopleftimg" style="background-image: url({{ asset('img/banner-1.jpg') }});">
                       <h5>NEW IN</h5>
                       <h2>WOMEN'S</h2>
-                     <a href=""> <button type="button" class="btn btn-outline-light px-4">SHOP NOW</button></a>
+                     <a href="{{ url('category/women-category') }}"><button type="button" class="btn btn-outline-light px-4">SHOP NOW</button></a>
                   </div>
               </div>
           </div>
@@ -19,7 +22,7 @@
                   <div class="shopleftimg" style="background-image: url({{ asset('img/banner-2.jpg') }});">
                       <h5>NEW IN</h5>
                       <h2>MEN'S</h2>
-                     <a href=""> <button type="button" class="btn btn-outline-light px-4">SHOP NOW</button></a>
+                     <a href="{{ url('category/mens-category') }}"><button type="button" class="btn btn-outline-light px-4">SHOP NOW</button></a>
                   </div>
               </div>
           </div>
@@ -123,135 +126,39 @@
 <!---------------------------------newarrival--------------------------------------->
 <section class="mt-60">
 
-  <div class="container">
-      <div class="categoriestextcenter">
+    <div class="container">
+        <div class="categoriestextcenter">
           <h2>New Arrivals</h2>
-          </div>
-      <div class="row">
-  <div class="col-lg-3 mt-3">
-      <div class="newarraivalbox">
-          <div class="newarraivalboximg" style="background-image: url({{ asset('img/arraival1.jpg')}});">
-              <div class="newarraivalboximg1">
-                  <button type="button" class="btn btn-outline-light">Explore Now</button>
-              </div>
-          </div>
-          <div class="newarraivalboxtext">
-              <h5><a href="">Clothing</a> </h5>
-              <h4><a href="">Tie-detail top</a></h4>
-              <h6> Now <i class="fa-solid fa-indian-rupee-sign"></i> 600<span>Was <i class="fa-solid fa-indian-rupee-sign"></i>  700</span>  </h6>
-          </div>
-      </div>
-  </div>
-  <div class="col-lg-3 mt-3">
-      <div class="newarraivalbox">
-          <div class="newarraivalboximg" style="background-image: url({{ asset('img/arraival2.jpg')}});">
-              <div class="newarraivalboximg1">
-                  <button type="button" class="btn btn-outline-light">Explore Now</button>
-              </div>
-          </div>
-          <div class="newarraivalboxtext">
-              <h5><a href="">Clothing</a> </h5>
-              <h4><a href="">Tie-detail top</a></h4>
-              <h6>  <i class="fa-solid fa-indian-rupee-sign"></i> 800  </h6>
-          </div>
-      </div>
-  </div>
-  <div class="col-lg-3 mt-3">
-      <div class="newarraivalbox">
-          <div class="newarraivalboximg" style="background-image: url({{ asset('img/arraival3.jpg')}});">
-              <div class="newarraivalboximg1">
-                  <button type="button" class="btn btn-outline-light">Explore Now</button>
-              </div>
-          </div>
-          <div class="newarraivalboxtext">
-              <h5><a href="">Clothing</a> </h5>
-              <h4><a href="">Tie-detail top</a></h4>
-              <h6>  <i class="fa-solid fa-indian-rupee-sign"></i> 1000  </h6>
-          </div>
-      </div>
-  </div>
-  <div class="col-lg-3 mt-3">
-      <div class="newarraivalbox">
-          <div class="newarraivalboximg" style="background-image: url({{ asset('img/arraival4.jpg')}});">
-              <div class="newarraivalboximg1">
-                  <button type="button" class="btn btn-outline-light">Explore Now</button>
-              </div>
-          </div>
-          <div class="newarraivalboxtext">
-              <h5><a href="">Clothing</a> </h5>
-              <h4><a href="">Denim jacket</a></h4>
-              <h6> Now <i class="fa-solid fa-indian-rupee-sign"></i> 1200  </h6>
-          </div>
-      </div>
-  </div>
-
-  <div class="col-lg-3 mt-3">
-      <div class="newarraivalbox">
-          <div class="newarraivalboximg" style="background-image: url({{ asset('img/arraival5.jpg')}});">
-              <div class="newarraivalboximg1">
-                  <button type="button" class="btn btn-outline-light">Explore Now</button>
-              </div>
-          </div>
-          <div class="newarraivalboxtext">
-              <h5><a href="">Clothing</a> </h5>
-              <h4><a href="">BShort wrap dress</a></h4>
-              <h6> <i class="fa-solid fa-indian-rupee-sign"></i> 700  </h6>
-          </div>
-      </div>
-  </div>
-
-  <div class="col-lg-3 mt-3">
-      <div class="newarraivalbox">
-          <div class="newarraivalboximg" style="background-image: url({{ asset('img/arraival6.jpg')}});">
-              <div class="newarraivalboximg1">
-                  <button type="button" class="btn btn-outline-light">Explore Now</button>
-              </div>
-          </div>
-          <div class="newarraivalboxtext">
-              <h5><a href="">Clothing</a> </h5>
-              <h4><a href="">Biker jacket</a></h4>
-              <h6>  <i class="fa-solid fa-indian-rupee-sign"></i> 800  </h6>
-          </div>
-      </div>
-  </div>
-
-  <div class="col-lg-3 mt-3">
-      <div class="newarraivalbox">
-          <div class="newarraivalboximg" style="background-image: url({{ asset('img/product-16-2.jpg')}});">
-              <div class="newarraivalboximg1">
-                  <button type="button" class="btn btn-outline-light">Explore Now</button>
-              </div>
-          </div>
-          <div class="newarraivalboxtext">
-              <h5><a href="">Clothing</a> </h5>
-              <h4><a href="">Loafers</a></h4>
-              <h6>  <i class="fa-solid fa-indian-rupee-sign"></i> 899  </h6>
-          </div>
-      </div>
-  </div>
-
-  <div class="col-lg-3 mt-3">
-      <div class="newarraivalbox">
-          <div class="newarraivalboximg" style="background-image: url({{ asset('img/arraival8.jpg')}});">
-              <div class="newarraivalboximg1">
-                  <button type="button" class="btn btn-outline-light">Explore Now</button>
-              </div>
-          </div>
-          <div class="newarraivalboxtext">
-              <h5><a href="">Clothing</a> </h5>
-              <h4><a href="">Super Skinny High Jeggings</a></h4>
-              <h6> Now <i class="fa-solid fa-indian-rupee-sign"></i> 600<span>Was <i class="fa-solid fa-indian-rupee-sign"></i>  700</span>  </h6>
-          </div>
-      </div>
-  </div>
-       
-      </div>
-<div class="newarraivalbtn">
-  <button type="button" class="btn btn-outline-light">Show More</button>
-</div>
-
-  </div>
-
+        </div>
+        <div class="row">
+            @if($latest_products->isNotEmpty())
+                @foreach($latest_products as $latest_product)
+                @php $p_image_path = ($latest_product->image!="") ? asset(config('constants.PRODUCT_IMAGE_PATH').$latest_product->image) : asset('img/boxed-bg.jpg') @endphp
+                    <div class="col-lg-3 mt-3">
+                        <div class="newarraivalbox">
+                            <div class="newarraivalboximg" style="background-image: url({{ asset($p_image_path)}});">
+                                <div class="newarraivalboximg1">
+                                    <button type="button" class="btn btn-outline-light">Explore Now</button>
+                                </div>
+                            </div>
+                            <div class="newarraivalboxtext">
+                                {{-- <h5><a href="">Clothing</a> </h5> --}}
+                                <h4><a href="">{{ $latest_product->product_name }}</a></h4>
+                                <h6> <i class="fa-solid fa-indian-rupee-sign"></i> {{ $latest_product->price }}
+                                    {{-- <span>Was <i class="fa-solid fa-indian-rupee-sign"></i>  700</span>   --}}
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            @endif     
+        </div>
+        @if($latest_products->count() > 12)
+            <div class="newarraivalbtn">
+                <button type="button" class="btn btn-outline-light">Show More</button>
+            </div>
+        @endif    
+    </div>
 </section>
 
 <!---------------------------------newarrivalend--------------------------------------->
