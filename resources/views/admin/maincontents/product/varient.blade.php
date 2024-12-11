@@ -167,7 +167,9 @@
 
                     </div>
                   </div>
-
+                  <div class="d-flex justify-content-end">
+                    <a href="{{ route('admin.product.list')}}" class="btn btn-secondary ml-2"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp; Back To List</a>
+                  </div>
              
             </div>
           </div>

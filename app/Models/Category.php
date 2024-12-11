@@ -24,14 +24,14 @@ class Category extends Model
                             'status' 
                             ];
 
-    public function product_categories(){
-        return $this->hasOne(ProductCategory::class, 'category_id', 'id');
-    }
-
-    // public function product_categories()
-    // {
-    //     return $this->belongsToMany(ProductCategory::class);
+    // public function product_categories(){
+    //     return $this->hasOne(ProductCategory::class, 'category_id', 'id');
     // }
+
+    public function product_categories()
+    {
+        return $this->hasMany(ProductCategory::class,'category_id', 'id');
+    }
 
     public static function getFormattedCategory($search_params=array())
     {
