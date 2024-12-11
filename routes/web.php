@@ -126,7 +126,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::post('changepassword', [SettingController::class, 'change_password'])->name('changepassword.submit');
 
         // admin profile 
-        Route::view('profile', 'admin.maincontents.profile.profile')->name('profile');
+        Route::get('profile', [SettingController::class, 'profile'])->name('profile');
 
         //admin logout
         Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout'); //Submit logout

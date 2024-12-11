@@ -36,4 +36,8 @@ class SettingController extends Controller
             return redirect()->back()->with(['toast'=>'1','status'=>'error','title'=>'Password Not Match','message'=>"Old Password Doesn't Match!"]);
         }
     }
+
+    public function profile(){
+        return view('admin.maincontents.profile.profile');
+    }
 }

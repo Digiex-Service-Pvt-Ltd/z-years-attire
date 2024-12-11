@@ -4,9 +4,10 @@ $user = Auth::guard('admin')->user();
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4 bg-colormain">
     <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link ">
+    <a href="{{route('admin.dashboard')}}" class="brand-link ">
       <img src="{{ asset('img/logo1.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">{{ $user->account_type; }}</span>
+      <p>Admin</p>
+      {{-- <span class="brand-text font-weight-light">{{ $user->account_type; }}</span> --}}
     </a>
 
     <!-- Sidebar -->
@@ -31,25 +32,29 @@ $user = Auth::guard('admin')->user();
 
             <li class="nav-item dashboardbodyboder">
                 <a href="{{ route('admin.dashboard') }}" class="nav-link dashboardbody {{request()->is('admin/dashboard')?'active': ''}}">
-                  <i class="nav-icon fas fa-tachometer-alt"></i><p>Dashboard</p>
+                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-layout-dashboard"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1" /><path d="M5 16h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1" /><path d="M15 12h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-6a1 1 0 0 1 1 -1" /><path d="M15 4h4a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1v-2a1 1 0 0 1 1 -1" /></svg>
+                  <p>Dashboard</p>
                 </a>
             </li>
 
             <li class="nav-item dashboardbodyboder">
                 <a href="{{ route('admin.category.list') }}" class="nav-link dashboardbody {{request()->is('admin/category')?'active': ''}}">
-                  <i class="nav-icon fas fa-tachometer-alt"></i><p>Categories</p>
+                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="currentColor"  class="icon icon-tabler icons-tabler-filled icon-tabler-category"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 3h-6a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1 -1v-6a1 1 0 0 0 -1 -1z" /><path d="M20 3h-6a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1 -1v-6a1 1 0 0 0 -1 -1z" /><path d="M10 13h-6a1 1 0 0 0 -1 1v6a1 1 0 0 0 1 1h6a1 1 0 0 0 1 -1v-6a1 1 0 0 0 -1 -1z" /><path d="M17 13a4 4 0 1 1 -3.995 4.2l-.005 -.2l.005 -.2a4 4 0 0 1 3.995 -3.8z" /></svg>
+                  <p>Categories</p>
                 </a>
             </li>
 
             <li class="nav-item dashboardbodyboder">
                 <a href="{{ route('admin.attribute.list') }}" class="nav-link dashboardbody {{request()->is('admin/attribute*')?'active': ''}}">
-                  <i class="nav-icon fas fa-tachometer-alt"></i><p>Attributes</p>
+                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-align-box-center-top"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 19v-14a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M11 13h2" /><path d="M9 10h6" /><path d="M10 7h4" /></svg>
+                  <p>Attributes</p>
                 </a>
             </li>
 
             <li class="nav-item dashboardbodyboder">
                 <a href="{{ route('admin.product.list') }}" class="nav-link dashboardbody {{request()->is('admin/product*')?'active': ''}}">
-                  <i class="nav-icon fas fa-tachometer-alt"></i><p>Products</p>
+                  <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-shopping-bag-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12.5 21h-3.926a3 3 0 0 1 -2.965 -2.544l-1.255 -8.152a2 2 0 0 1 1.977 -2.304h11.339a2 2 0 0 1 1.977 2.304l-.263 1.708" /><path d="M16 19h6" /><path d="M19 16v6" /><path d="M9 11v-5a3 3 0 0 1 6 0v5" /></svg>
+                  <p>Products</p>
                 </a>
             </li>
 
