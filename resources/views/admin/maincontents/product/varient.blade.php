@@ -124,11 +124,11 @@
                       <table class="table table-bordered">
                         <thead>
                           <tr>
-                            <th style="width:30%">Varients</th>
+                            <th style="width:25%">Varients</th>
                             <th>SKU Code</th>
                             <th>Price</th>
                             <th>Stock</th>
-                            <th style="width:15%">Status</th>
+                            <th style="width:13%">Status</th>
                             <th colspan="2">Action</th>
                           </tr>
                         </thead>
