@@ -24,12 +24,41 @@ class ProductVarient extends Model
 
     public function products()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 
     public function varient_attributes()
     {
         return $this->hasMany(VarientAttribute::class, 'product_varient_id', 'id');
+    }
+
+    public function attributesWithValues()
+    {
+        return $this->hasManyThrough(
+            AttributeValue::class,
+            VarientAttribute::class,
+            'product_varient_id',    // Foreign key on `variant_attributes` table
+            'id',                    // Foreign key on `attribute_values` table
+            'id',                    // Local key on `product_variants` table
+            'attribute_value_id'     // Local key on `variant_attributes` table
+        )->with('attributes');
+    }
+
+    // public function images()
+    // {
+    //     return $this->hasManyThrough(
+    //         ProductImage::class,
+    //         Product::class,
+    //         'id',        // Foreign key on `products` table
+    //         'product_id', // Foreign key on `product_images` table
+    //         'product_id', // Local key on `product_variants` table
+    //         'id'          // Local key on `products` table
+    //     )->with('attributeValue');
+    // }
+
+    public function productImages()
+    {
+        return $this->hasMany(ProductImage::class, 'product_varient_id');
     }
 
     protected static function booted()

@@ -20,16 +20,17 @@ class VarientAttribute extends Model
 
     public function product_varients()
     {
-        return $this->belongsTo(ProductVarient::class,'product_varient_id', 'id');
+        return $this->belongsTo(ProductVarient::class, 'id', 'product_varient_id');
     }
 
     public function attribute_values()
     {
-        return $this->hasOne(AttributeValue::class, 'id', 'attribute_value_id');
+        return $this->belongsTo(AttributeValue::class, 'attribute_value_id', 'id');
     }
     //public function attribute_values()
     // {
     //     return $this->belongsTo(AttributeValue::class, 'attribute_value_id', 'id');
     // }
+
 
 }

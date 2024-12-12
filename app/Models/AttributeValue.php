@@ -19,12 +19,17 @@ class AttributeValue extends Model
     
     public function attributes()
     {
-        return $this->belongsTo(Attribute::Class);
+        return $this->belongsTo(Attribute::Class, 'attribute_id');
     }
 
     public function varient_attributes()
     {
-        return $this->belongsTo(VarientAttribute::Class, 'attribute_value_id', 'id');
+        return $this->hasMany(VarientAttribute::Class, 'attribute_value_id', 'id');
+    }
+
+    public function productImages()
+    {
+        return $this->hasMany(ProductImage::class, 'attribute_value_id');
     }
     
     // public function varient_attributes()

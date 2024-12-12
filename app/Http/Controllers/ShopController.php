@@ -32,9 +32,9 @@ class ShopController extends Controller
         ->select('P.*', 'PC.category_id', 'C.category_name')
         ->get();
 
-        dd($products);
+        //dd($products);
         
-        return view('maincontents/product/search', $data);
+        return view('maincontents/product/shop', $data);
     }
 
     

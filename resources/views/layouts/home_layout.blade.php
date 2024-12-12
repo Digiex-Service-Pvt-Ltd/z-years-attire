@@ -8,7 +8,6 @@
   <header>
     @include('common.header')
     @include('common.topnav')
-    @include('common.banner')
   </header>
 
 <!------------------------------body---------------------------->

@@ -87,6 +87,7 @@ class Category extends Model
         $results = DB::select("SELECT t1.id,
                                 t1.parent_id,
                                 t1.category_name as text,
+                                t1.slug,
                                 t1.sort_order,
                                 t1.deleted_at
                                 FROM categories as t1 
