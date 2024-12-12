@@ -196,3 +196,21 @@ color: white;
 
     margin-top: 6px;
   }
+
+      .nav-pills .nav-link.active{
+        color: white !important;
+        text-decoration-color: white !important;
+        background-color: #333 !important;
+    }
+
+    .bg-colormain ul li a .nav-link.active{
+        color: white !important;
+        text-decoration-color: white !important;
+        background-color: #333 !important;
+    }
+
+    .bg-colormain ul li a.active{
+        color: white !important;
+        text-decoration-color: white !important;
+        background-color: #333 !important;
+    }   

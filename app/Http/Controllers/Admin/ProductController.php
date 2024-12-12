@@ -365,7 +365,8 @@ class ProductController extends Controller
                 'variant_name'  => $product_dtls->product_name,
                 'sku_code'      =>'',
                 'price'         =>$product_dtls->price,
-                'stock_qty'     => 0
+                'stock_qty'     => 0,
+                'status'        => 0,
             ]);
 
             $varient_id = $product_varient->id;
@@ -395,6 +396,7 @@ class ProductController extends Controller
         $product_varient->sku_code = $request->sku;
         $product_varient->price = $request->price;
         $product_varient->stock_qty = $request->stock;
+        $product_varient->status=$request->status;
 
         $product_varient->save();
 

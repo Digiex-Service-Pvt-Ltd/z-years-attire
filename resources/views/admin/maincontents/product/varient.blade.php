@@ -124,11 +124,12 @@
                       <table class="table table-bordered">
                         <thead>
                           <tr>
-                            <th style="width:30%">Varients</th>
+                            <th style="width:25%">Varients</th>
                             <th>SKU Code</th>
                             <th>Price</th>
                             <th>Stock</th>
-                            <th style="width:15%">Action</th>
+                            <th style="width:13%">Status</th>
+                            <th colspan="2">Action</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -153,8 +154,16 @@
                                 <th scope="col">
                                   <input type="text" class="form-control text-center" id="stock_{{ $varient->id }}" value="{{ $varient->stock_qty }}">
                                 </th>
+                                <th>
+                                  <select id="vrstatus_{{ $varient->id }}" class="custom-select">
+                                    <option value="0" {{ ($varient->status=="0") ? 'selected="selected"' : "" }} >Inactive</option>
+                                    <option value="1" {{ ($varient->status=="1") ? 'selected="selected"' : "" }} >Active</option>
+                                  </select>
+                                </th>
                                 <th scope="col">
                                   <button type="button" class="btn btn-primary varUp" vid={{ $varient->id }}><i class="far fa-edit"></i></button>
+                                </th>
+                                <th>
                                   <button type="button" class="btn btn-danger varDelete" vid={{ $varient->id }}><i class="far fa-trash-alt"></i></button>
                                 </th>
                               </tr>
@@ -221,6 +230,7 @@
         let vSKU = $('#sku_'+varientId).val();
         let vPrice = $('#price_'+varientId).val();
         let vStock= $('#stock_'+varientId).val();
+        let vStatus= $('#vrstatus_'+varientId ).val();
 
         thisObj.attr('disabled', true);
         let urlP = "{{ route('admin.product.varient.update', 'urlpath') }}";
@@ -228,10 +238,10 @@
         $.ajax({
               url: urlP,
               type: 'POST',
-              data: {sku:vSKU, price: vPrice, stock:vStock},
+              data: {sku:vSKU, price: vPrice, stock:vStock, status:vStatus},
               success: function(response) {
                   
-                  if(response.status == "success"){
+                  if(response.status === "success"){
                     thisObj.attr('disabled', false);
                     toastr.success('Success', response.msg);
                       
