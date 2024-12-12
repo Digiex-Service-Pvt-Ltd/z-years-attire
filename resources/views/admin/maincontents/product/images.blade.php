@@ -82,7 +82,7 @@
                             <div class="col-lg-12">
                               <form class="row" id="frmVar" name="frmVar" action="{{ route('admin.product.images.upload', $product->id) }}" method="POST" enctype="multipart/form-data">
                                     {{ csrf_field() }}
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label for="">Select a Color</label>
                                         <select name="color_attribute" class="form-control">
                                           <option value="">Select a Color</option>
@@ -95,7 +95,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-6">
                                         <label for="">Browse Images</label>
                                         <div class="input-group">
                                             <div class="custom-file">
@@ -116,9 +116,50 @@
                                           </ul>
                                         @endif
                                     </div>
-
+  
+                                    <div class="form-group col-lg-8">
+                                      <label for="slugnm">Select Varients <span class="required" aria-required="true"> * </span></label>
+                                    
+                                      <select class="form-control selectpicker" id="catid" data-live-search="true" title="Choose at least one" name="varents_id[]" multiple>
+                                        @php
+                                          $combined_values = [];
+                                        @endphp
+                                    
+                                        @foreach($varient_products as $varient)
+                                          @if($varient->varient_attributes->isNotEmpty())
+                                            @foreach ($varient->varient_attributes as $vattr)
+                                              @php
+                                                // Get all attribute_values for attribute_id 1 and 2
+                                                $value_names_1 = $vattr->attribute_values->where('attribute_id', 1)->pluck('value_name')->toArray();
+                                                $value_names_2 = $vattr->attribute_values->where('attribute_id', 2)->pluck('value_name')->toArray();
+                                    
+                                                // Ensure both arrays have the same length before pairing
+                                                $max_length = max(count($value_names_1), count($value_names_2));
+                                    
+                                                // Combine values based on index (first with first, second with second, etc.)
+                                                for ($i = 0; $i < $max_length; $i++) {
+                                                    $value_1 = isset($value_names_1[$i]) ? $value_names_1[$i] : '';
+                                                    $value_2 = isset($value_names_2[$i]) ? $value_names_2[$i] : '';
+                                                    if ($value_1 && $value_2) {
+                                                        $combined_values[] = $value_1 . '-' . $value_2;
+                                                    }
+                                                }
+                                              @endphp
+                                            @endforeach
+                                          @endif
+                                        @endforeach
+                                    
+                                        <!-- Render unique combined values -->
+                                        @foreach(array_unique($combined_values) as $combined_value)
+                                          <option value="{{ $combined_value }}">{{ $combined_value }}</option>
+                                        @endforeach
+                                      </select>
+                                    
+                                      <span class="error-txt">{{ $errors->first('varient_products') }}</span>
+                                    </div>
+          
                                     <div class="form-group col-md-4 mt-4">
-                                        <button class="btn btn-primary mt-2" type="submit" name="submit" value="submit" fdprocessedid="5gs6htr"><i class="fa fa-check"></i> Upload Images</button>
+                                      <button class="btn btn-primary mt-2" type="submit" name="submit" value="submit" fdprocessedid="5gs6htr"><i class="fa fa-check"></i> Upload Images</button>
                                     </div>
                                 </form>
                             </div> 
