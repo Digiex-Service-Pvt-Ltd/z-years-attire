@@ -70,11 +70,14 @@
                       @endif
                     </td>
                     <td class="text-center">
-                      <div class="dropdown show">
+                      <div class="dropdown dropleft">
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                           <a class="dropdown-item" href="{{ route('admin.product.edit', $product->id) }}">Edit</a>
+                          <a class="dropdown-item" href="{{ route('admin.product.varient', $product->id) }}">Manage Varients</a>
+                          <a class="dropdown-item" href="{{ route('admin.product.images', $product->id) }}">Upload Images</a>
+                          <a class="dropdown-item" href="{{ route('admin.product.meta', $product->id) }}">Manage Meta</a>
                           <a class="dropdown-item delRow" pId="{{ $product->id }}">Delete</a>
                           <form id="frdt{{ $product->id }}" action="{{ route('admin.product.delete', $product->id) }}" method="POST">@csrf</form>
                         </div>
