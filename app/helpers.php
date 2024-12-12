@@ -1,6 +1,6 @@
 <?php
 use App\Common\Utils;
-use App\Models\Category;
+// use App\Models\Category;
 
 
 /* Get all categories */

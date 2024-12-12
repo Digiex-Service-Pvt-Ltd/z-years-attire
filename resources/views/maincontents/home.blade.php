@@ -13,7 +13,7 @@
                   <div class="shopleftimg" style="background-image: url({{ asset('img/banner-1.jpg') }});">
                       <h5>NEW IN</h5>
                       <h2>WOMEN'S</h2>
-                     <a href="{{ url('category/women-category') }}"><button type="button" class="btn btn-outline-light px-4">SHOP NOW</button></a>
+                     <a href="{{ url('shop/women-category') }}"><button type="button" class="btn btn-outline-light px-4">SHOP NOW</button></a>
                   </div>
               </div>
           </div>
@@ -22,7 +22,7 @@
                   <div class="shopleftimg" style="background-image: url({{ asset('img/banner-2.jpg') }});">
                       <h5>NEW IN</h5>
                       <h2>MEN'S</h2>
-                     <a href="{{ url('category/mens-category') }}"><button type="button" class="btn btn-outline-light px-4">SHOP NOW</button></a>
+                     <a href="{{ url('shop/mens-category') }}"><button type="button" class="btn btn-outline-light px-4">SHOP NOW</button></a>
                   </div>
               </div>
           </div>
@@ -48,7 +48,7 @@
                         <div class="categoriesboxmain categoriesboxmain1" style="background-image: url({{ $c_image_path }});">
                             <div class="categoriesboxmainshop">
                                 <h4>{{ $f_category->category_name }}</h4>
-                                <a type="button" href="{{ url('category/'.$f_category->slug) }}" class="btn btn-outline-light">Expolre Now</a>
+                                <a type="button" href="{{ url('shop/'.$f_category->slug) }}" class="btn btn-outline-light">Expolre Now</a>
                             </div>
                         </div>
                     </div>
@@ -131,27 +131,30 @@
           <h2>New Arrivals</h2>
         </div>
         <div class="row">
-            @if($latest_products->isNotEmpty())
-                @foreach($latest_products as $latest_product)
-                @php $p_image_path = ($latest_product->image!="") ? asset(config('constants.PRODUCT_IMAGE_PATH').$latest_product->image) : asset('img/boxed-bg.jpg') @endphp
-                    <div class="col-lg-3 mt-3">
-                        <div class="newarraivalbox">
-                            <div class="newarraivalboximg" style="background-image: url({{ asset($p_image_path)}});">
-                                <div class="newarraivalboximg1">
-                                    <button type="button" class="btn btn-outline-light">Explore Now</button>
+               
+                    @if($latest_products->isNotEmpty() )
+                        @foreach($latest_products as $varient_product)
+                                @php $p_image_path = ($varient_product->image_name!="") ? asset(config('constants.PRODUCT_IMAGE_PATH').$varient_product->image_name) : asset('img/boxed-bg.jpg')
+                                @endphp
+                                <div class="col-lg-3 mt-3">
+                                    <div class="newarraivalbox">
+                                        <div class="newarraivalboximg" style="background-image: url({{ asset($p_image_path)}});">
+                                            <div class="newarraivalboximg1">
+                                                <button type="button" class="btn btn-outline-light">Explore Now</button>
+                                            </div>
+                                        </div>
+                                        <div class="newarraivalboxtext">
+                                            <h5><a href="">{{ $varient_product->value_name }}</a> </h5>
+                                            <h4><a href="">{{ $varient_product->variant_name }}</a></h4>
+                                            <h6> <i class="fa-solid fa-indian-rupee-sign"></i> {{ $varient_product->price }}
+                                                {{-- <span>Was <i class="fa-solid fa-indian-rupee-sign"></i>  700</span>   --}}
+                                            </h6>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="newarraivalboxtext">
-                                {{-- <h5><a href="">Clothing</a> </h5> --}}
-                                <h4><a href="">{{ $latest_product->product_name }}</a></h4>
-                                <h6> <i class="fa-solid fa-indian-rupee-sign"></i> {{ $latest_product->price }}
-                                    {{-- <span>Was <i class="fa-solid fa-indian-rupee-sign"></i>  700</span>   --}}
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            @endif     
+                        @endforeach
+                    @endif
+                    
         </div>
         @if($latest_products->count() > 12)
             <div class="newarraivalbtn">

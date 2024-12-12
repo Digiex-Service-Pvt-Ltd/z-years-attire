@@ -25,7 +25,7 @@ use App\Http\Controllers\ShopController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('category/{category_slug}', [ShopController::class, 'index']);
+Route::get('shop/{category_slug}', [ShopController::class, 'index']);
 
 
 //Routes for user
