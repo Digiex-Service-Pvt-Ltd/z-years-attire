@@ -132,9 +132,9 @@
         </div>
         <div class="row">
                
-                    @if($latest_products->isNotEmpty() )
-                        @foreach($latest_products as $varient_product)
-                                @php $p_image_path = ($varient_product->image_name!="") ? asset(config('constants.PRODUCT_IMAGE_PATH').$varient_product->image_name) : asset('img/boxed-bg.jpg')
+                    @if( !empty($products) )
+                        @foreach($products as $varient_product)
+                                @php $p_image_path = ( !empty($varient_product['product_images']) && $varient_product['product_images'][0]['image_name']!="") ? asset(config('constants.PRODUCT_IMAGE_PATH'). $varient_product['product_images'][0]['image_name']) : asset('img/boxed-bg.jpg')
                                 @endphp
                                 <div class="col-lg-3 mt-3">
                                     <div class="newarraivalbox">
@@ -144,9 +144,15 @@
                                             </div>
                                         </div>
                                         <div class="newarraivalboxtext">
-                                            <h5><a href="">{{ $varient_product->value_name }}</a> </h5>
-                                            <h4><a href="">{{ $varient_product->variant_name }}</a></h4>
-                                            <h6> <i class="fa-solid fa-indian-rupee-sign"></i> {{ $varient_product->price }}
+                                            @if( !empty($varient_product['attributes_with_values']) )
+                                            <h5>
+                                                @foreach($varient_product['attributes_with_values'] as $attrArr)
+                                                    {{ $attrArr["attributes"]['attribute_name'] }} : {{ $attrArr["value_name"] }}
+                                                @endforeach
+                                            </h5>
+                                            @endif
+                                            <h4><a href="">{{ $varient_product['variant_name'] }}</a></h4>
+                                            <h6> <i class="fa-solid fa-indian-rupee-sign"></i> {{ $varient_product['price'] }}
                                                 {{-- <span>Was <i class="fa-solid fa-indian-rupee-sign"></i>  700</span>   --}}
                                             </h6>
                                         </div>
@@ -156,7 +162,8 @@
                     @endif
                     
         </div>
-        @if($latest_products->count() > 12)
+        
+        @if(count($products) > 12)
             <div class="newarraivalbtn">
                 <button type="button" class="btn btn-outline-light">Show More</button>
             </div>

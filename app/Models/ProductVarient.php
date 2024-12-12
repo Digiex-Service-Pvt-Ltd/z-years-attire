@@ -44,16 +44,21 @@ class ProductVarient extends Model
         )->with('attributes');
     }
 
-    public function images()
+    // public function images()
+    // {
+    //     return $this->hasManyThrough(
+    //         ProductImage::class,
+    //         Product::class,
+    //         'id',        // Foreign key on `products` table
+    //         'product_id', // Foreign key on `product_images` table
+    //         'product_id', // Local key on `product_variants` table
+    //         'id'          // Local key on `products` table
+    //     )->with('attributeValue');
+    // }
+
+    public function productImages()
     {
-        return $this->hasManyThrough(
-            ProductImage::class,
-            Product::class,
-            'id',        // Foreign key on `products` table
-            'product_id', // Foreign key on `product_images` table
-            'product_id', // Local key on `product_variants` table
-            'id'          // Local key on `products` table
-        )->with('attributeValue');
+        return $this->hasMany(ProductImage::class, 'product_varient_id');
     }
 
     protected static function booted()

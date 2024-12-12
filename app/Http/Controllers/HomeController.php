@@ -19,9 +19,9 @@ class HomeController extends Controller
         // $data["latest_products"] = Product::with('product_varients.varient_attributes.attribute_values.attributes')
         // ->where(['product_type'=>'varient', 'status'=>1])->orderBy('id', 'DESC')->take(12)->get();
         
-        $variants = ProductVarient::with(['attributesWithValues', 'images.attributeValue'])->get()->toArray();
+        $data['products'] = ProductVarient::with(['attributesWithValues', 'productImages.attributeValue'])->get()->toArray();
 
-        echo "<pre>"; print_r($variants); die();
+        //echo "<pre>"; print_r($data['products']); die();
         //dd($latest_products);
         // foreach($latest_products as $p){
         //     echo "Product_id: ".$p->id."<br>";
@@ -35,9 +35,9 @@ class HomeController extends Controller
         //     }
         //     die();
         // }
-        $prodObj = new Product;
-        $data["latest_products"] = $prodObj->get_varient_products();
-        dd($data["latest_products"]);
+        // $prodObj = new Product;
+        // $data["latest_products"] = $prodObj->get_varient_products();
+        // dd($data["latest_products"]);
         return view('maincontents/home', $data);
     }
     

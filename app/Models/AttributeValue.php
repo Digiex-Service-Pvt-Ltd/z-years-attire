@@ -26,4 +26,9 @@ class AttributeValue extends Model
     {
         return $this->hasMany(VarientAttribute::Class, 'attribute_value_id', 'id');
     }
+
+    public function productImages()
+    {
+        return $this->hasMany(ProductImage::class, 'attribute_value_id');
+    }
 }
