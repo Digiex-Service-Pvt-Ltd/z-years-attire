@@ -33,6 +33,11 @@ class Category extends Model
         return $this->hasMany(ProductCategory::class,'category_id', 'id');
     }
 
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_categories', 'category_id', 'product_id');
+    }
+
     public static function getFormattedCategory($search_params=array())
     {
         // Step 1: Create temporary table tmp_menuid
