@@ -117,49 +117,60 @@
                                         @endif
                                     </div>
   
-                                    <div class="form-group col-lg-8">
+                                    
+                                    <div class="form-group col-lg-12">
                                       <label for="slugnm">Select Varients <span class="required" aria-required="true"> * </span></label>
-                                    
-                                      <select class="form-control selectpicker" id="catid" data-live-search="true" title="Choose at least one" name="varents_id[]" multiple>
-                                        @php
-                                          $combined_values = [];
-                                        @endphp
-                                    
-                                        @foreach($varient_products as $varient)
-                                          @if($varient->varient_attributes->isNotEmpty())
-                                            @foreach ($varient->varient_attributes as $vattr)
-                                              @php
-                                                // Get all attribute_values for attribute_id 1 and 2
-                                                $value_names_1 = $vattr->attribute_values->where('attribute_id', 1)->pluck('value_name')->toArray();
-                                                $value_names_2 = $vattr->attribute_values->where('attribute_id', 2)->pluck('value_name')->toArray();
-                                    
-                                                // Ensure both arrays have the same length before pairing
-                                                $max_length = max(count($value_names_1), count($value_names_2));
-                                    
-                                                // Combine values based on index (first with first, second with second, etc.)
-                                                for ($i = 0; $i < $max_length; $i++) {
-                                                    $value_1 = isset($value_names_1[$i]) ? $value_names_1[$i] : '';
-                                                    $value_2 = isset($value_names_2[$i]) ? $value_names_2[$i] : '';
-                                                    if ($value_1 && $value_2) {
-                                                        $combined_values[] = $value_1 . '-' . $value_2;
-                                                    }
-                                                }
-                                              @endphp
-                                            @endforeach
-                                          @endif
-                                        @endforeach
-                                    
-                                        <!-- Render unique combined values -->
-                                        @foreach(array_unique($combined_values) as $combined_value)
-                                          <option value="{{ $combined_value }}">{{ $combined_value }}</option>
-                                        @endforeach
-                                      </select>
-                                    
+                                        <table class="table table-bordered">
+                                          <thead>
+                                            <tr>
+                                              <th scope="col" style="width:22%" class="text-center">
+                                                <div class="form-check">
+                                                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick="toggle(this);" >
+                                                  <label class="form-check-label" for="flexCheckDefault" id="select_all">
+                                                    Select All
+                                                  </label>
+                                                </div>
+                                              </th>
+                                              <th scope="col" class="text-center">Size</th>
+                                              <th scope="col" class="text-center" colspan="2">Color</th>
+                                              {{-- <th scope="col" style="width:25%">Color Attributes</th> --}}
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                              @if(!empty($products))
+                                                @foreach($products as $varient)
+                                                  @if(!empty($varient['attributes_with_values']))
+                                                    <tr>
+                                                      <td class="text-center">
+                                                        <div class="form-check">
+                                                          <input class="form-check-input boxcheck" name="varents_id[]" type="checkbox" value="{{ $varient['id'] }}" id="flexCheckDefault{{ $varient['id'] }}">
+                                                        </div>
+                                                      </td>
+                                                      @foreach ($varient['attributes_with_values'] as $vattr)
+                                                        <td class="text-center">{{ $vattr["value_name"] }}</td>
+                                                      @endforeach
+                                                      <td class="text-center">
+                                                        @if($vattr["hexa_color_code"]!="")
+                                                          <font size="4" face="arial" color="{{$vattr["hexa_color_code"]}}" class="border border-dark rounded-circle">
+                                                            <i class="fa fa-circle" aria-hidden="true"></i>
+                                                          </font>
+                                                        @endif
+                                                      </td>
+                                                    </tr>
+                                                  @endif
+                                                @endforeach
+                                              @else
+                                                <p>no data found</p>
+                                              @endif
+                                          </tbody>
+                                        </table>
                                       <span class="error-txt">{{ $errors->first('varient_products') }}</span>
                                     </div>
           
-                                    <div class="form-group col-md-4 mt-4">
-                                      <button class="btn btn-primary mt-2" type="submit" name="submit" value="submit" fdprocessedid="5gs6htr"><i class="fa fa-check"></i> Upload Images</button>
+                                    <div class="form-group col-md-12 mt-12">
+                                      <div class="d-flex justify-content-end">
+                                        <button class="btn btn-primary mt-2" type="submit" name="submit" value="submit" fdprocessedid="5gs6htr"><i class="fa fa-check"></i> Upload Images</button>
+                                      </div>
                                     </div>
                                 </form>
                             </div> 
@@ -167,6 +178,8 @@
                             <div class="col-lg-12"><p class="text-center">No color attributes found.</p></div>
                         @endif
                       </div>
+
+                      
                         
 
                     </div>  
@@ -305,6 +318,15 @@
      //console.log(url);
      window.location.href = url;
   }
+
+
+function toggle(source) {
+    var checkboxes = document.querySelectorAll('.boxcheck');
+    for (var i = 0; i < checkboxes.length; i++) {
+        if (checkboxes[i] != source)
+            checkboxes[i].checked = source.checked;
+    }
+}
      
 </script>
 @endpush
