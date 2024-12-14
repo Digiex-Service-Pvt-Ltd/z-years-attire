@@ -27,6 +27,10 @@ class VarientAttribute extends Model
     {
         return $this->belongsTo(AttributeValue::class, 'attribute_value_id', 'id');
     }
+    //public function attribute_values()
+    // {
+    //     return $this->belongsTo(AttributeValue::class, 'attribute_value_id', 'id');
+    // }
 
 
 }

@@ -212,7 +212,7 @@ class ProductController extends Controller
                 foreach($categories as $category_id){
                     DB::table('product_categories')->insert([
                             'product_id'=>$id,
-                             'category_id'=>$category_id
+                            'category_id'=>$category_id
                     ]);
                 }
             }
@@ -345,7 +345,7 @@ class ProductController extends Controller
 
         //Get list of varient products
         $data['varient_products'] = ProductVarient::with(['varient_attributes.attribute_values'])->where('product_id', $id)->get(); 
-        //echo dd($data['varient_products']);
+        // echo dd($data['varient_products']);
         //echo "<pre>"; print_r($data['combinations']);
         // echo "<pre>"; print_r($data["ex_comb"]);
         // die();
@@ -418,6 +418,11 @@ class ProductController extends Controller
         $data = array();
         $data['value_id'] = $value_id;
         $data['product'] = Product::findorfail($product_id);
+        // $data['varient_products'] = ProductVarient::with(['varient_attributes.attribute_values'=> function ($query) {
+        //     $query->whereIn('attribute_id', [1, 2]);
+        // }])->where('product_id', $product_id)->get();
+        $data['products'] = ProductVarient::with(['attributesWithValues', 'productImages.attributeValue'])->get()->toArray();
+        // dd($data['products']);
         $data['product_color_attributes'] = DB::table('varient_attributes AS VA')
                                             ->select('VA.attribute_value_id', DB::raw('MAX(AV.value_name) AS value_name'), DB::raw('MAX(AV.hexa_color_code) AS color_code'))
                                             ->leftJoin('product_varients AS PV', function ($join) use ($product_id) {
@@ -433,7 +438,12 @@ class ProductController extends Controller
         else
             $data["list_images"] = ProductImage::where('product_id', $product_id)->get();
         
-                                          
+            // $data['assign_varient'] = $data["varient_products"]
+            // ->flatMap(function ($varient) {
+            //     return $varient->varient_attributes->pluck('attribute_id');
+            // })
+            // ->toArray();     
+            // dd($data['assign_varient']);                            
         return view('admin.maincontents.product.images', $data);
         
     }
@@ -443,12 +453,18 @@ class ProductController extends Controller
         $this->validate($request, [
             'color_attribute'=>'required',
             'iamges' => 'required',
-            'iamges.*' => 'required|mimes:jpeg,png,jpg'
+            'iamges.*' => 'required|mimes:jpeg,png,jpg',
+            'varents_id' => 'required|array',
+            'varents_id.*' => 'required|integer'
         ]);
         
         /* ***************************************** */
         /* ************** Image Upload ************* */
         $images = $request->file('iamges');
+        $variant_ids = $request->varents_id;
+        // dd($variant_ids);
+
+        foreach ($variant_ids as $variant_id) {
         foreach($images as $image)
         {
             $manager = new ImageManager(new Driver());
@@ -462,13 +478,17 @@ class ProductController extends Controller
             $img->toJpeg(80)->save( public_path($image_path.$image_name) );
 
             //save records into product_images table
+            
             ProductImage::create([
                 'product_id' => $product_id,
+                'product_varient_id' => $variant_id,
                 'attribute_value_id' => $request->color_attribute,
                 'image_name' => $image_name,
                 'sort_order' => 0
             ]);
+          
         }    
+    }
        
         /* ***************************************** */
         /* ***************************************** */
