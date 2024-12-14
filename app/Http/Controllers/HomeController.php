@@ -12,32 +12,20 @@ use DB;
 
 class HomeController extends Controller
 {
+    public function __construct()
+    {  
+        $this->prodMdlObj = new Product;
+    }
+
     public function index()
     {
         $data = array();
         $data['featured_categories'] = Category::where('is_featured', 1)->get();
-        // $data["latest_products"] = Product::with('product_varients.varient_attributes.attribute_values.attributes')
-        // ->where(['product_type'=>'varient', 'status'=>1])->orderBy('id', 'DESC')->take(12)->get();
-        
-        $data['products'] = ProductVarient::with(['attributesWithValues', 'productImages.attributeValue'])->get()->toArray();
 
-        //echo "<pre>"; print_r($data['products']); die();
-        //dd($latest_products);
-        // foreach($latest_products as $p){
-        //     echo "Product_id: ".$p->id."<br>";
-        //     foreach($p->product_varients as $pv){
-        //         echo "Varient_id: ".$pv->id."<br>";
-        //         foreach($pv->varient_attributes as $va){
-        //         echo $va->attribute_value_id."<br>";
-        //         echo $va->attribute_values->value_name."<br>";
-                       
-        //         }
-        //     }
-        //     die();
-        // }
-        // $prodObj = new Product;
-        // $data["latest_products"] = $prodObj->get_varient_products();
-        // dd($data["latest_products"]);
+        $params = array('limit'=>'16');
+        $data['products'] = $this->prodMdlObj->get_varient_product_list($params);
+        //dd($data["products"]);
+
         return view('maincontents/home', $data);
     }
     

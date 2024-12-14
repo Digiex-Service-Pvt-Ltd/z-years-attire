@@ -23,7 +23,7 @@ $categories = get_category_treeview();
                             </div>
 
                             <!-- Dynamic menu section -->
-                            @if(!empty($categories))
+                            {{-- @if(!empty($categories))
                                 @foreach($categories as $category)
                                     <li><a href="{{ url('shop/'.$category['slug']) }}">{{ $category['text'] }}</a>
                                         @if(!empty($category['children']))
@@ -47,7 +47,7 @@ $categories = get_category_treeview();
                                         @endif
                                     </li>
                                 @endforeach
-                            @endif
+                            @endif --}}
                             <!-- Dynamic menu end -->
 
                             <li><a href="">Blog</a></li>

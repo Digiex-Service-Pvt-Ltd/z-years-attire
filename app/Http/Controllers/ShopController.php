@@ -10,6 +10,12 @@ use DB;
 
 class ShopController extends Controller
 {
+
+    public function __construct()
+    {  
+        $this->prodMdlObj = new Product;
+    }
+
     public function index($category_slug)
     {   
         $data = array();
@@ -24,15 +30,19 @@ class ShopController extends Controller
         }
         // -------------------------- //
         //get all products assigned with this category
-        $products = DB::table('product_categories AS PC')
-        ->leftjoin('products AS P', 'PC.product_id', '=', 'P.id')
-        ->leftjoin('categories AS C', 'PC.category_id', '=', 'C.id')
-        ->where(['PC.category_id'=>$data['category']->id, 'P.status'=>1, 'P.deleted_at'=>NULL])
-        ->orderBy('P.id', 'DESC')
-        ->select('P.*', 'PC.category_id', 'C.category_name')
-        ->get();
+        // $products = DB::table('product_categories AS PC')
+        // ->leftjoin('products AS P', 'PC.product_id', '=', 'P.id')
+        // ->leftjoin('categories AS C', 'PC.category_id', '=', 'C.id')
+        // ->where(['PC.category_id'=>$data['category']->id, 'P.status'=>1, 'P.deleted_at'=>NULL])
+        // ->orderBy('P.id', 'DESC')
+        // ->select('P.*', 'PC.category_id', 'C.category_name')
+        // ->get();
 
-        //dd($products);
+        $search_category = [$data['category']->id];
+        $params = array('limit'=>'40', 'category_ids'=>$search_category);
+        $data['products'] = $this->prodMdlObj->get_varient_product_list($params);
+        
+        //dd($data['products']);
         
         return view('maincontents/product/shop', $data);
     }
