@@ -128,7 +128,7 @@
                             <th>SKU Code</th>
                             <th>Price</th>
                             <th>Stock</th>
-                            <th style="width:13%">Status</th>
+                            <th style="width:14%">Status</th>
                             <th colspan="3">Action</th>
                           </tr>
                         </thead>

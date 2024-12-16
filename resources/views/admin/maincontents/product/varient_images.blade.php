@@ -21,10 +21,10 @@
                     @endforeach
                 </div>
             @else
-                <a href="{{ route('admin.product.list')}}" class="text-center text-secondary">
+                <button id="btnNav" class="btn btn-secondary">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     No Image Found Please Add Image
-                </a>
+                </button>
             @endif
 
         </div>
@@ -35,8 +35,6 @@
 // Image Delete function
 jQuery(document).ready(function () {
       $('.dtlimg').on('click', function(e){
-
-
         Swal.fire({
                   title: "Are you sure?",
                   text: "You won't be able to revert this!",
@@ -89,6 +87,19 @@ jQuery(document).ready(function () {
                 })
       })       
   })
+
+  $('#btnNav').on('click', function(e) {
+    e.preventDefault();
+
+    let currentUrl = window.location.href;
+
+    let idMatch = currentUrl.match(/\/(\d+)(\/|$)/);
+    let id = idMatch ? idMatch[1] : null;
+
+    let urlP = "{{ route('admin.product.images', 'urlpath') }}";
+    urlP = urlP.replace('urlpath', +id);
+    window.location.href = urlP;
+});
 
 
 </script>
