@@ -157,6 +157,8 @@
                                                         @endif
                                                       </td>
                                                     </tr>
+                                                  @else
+                                                  <p>No Product Varient Found</p>
                                                   @endif
                                                 @endforeach
                                               @else
@@ -185,7 +187,7 @@
                     </div>  
                   </div>
 
-                  <div class="card bg-light mt-5">
+                  {{-- <div class="card bg-light mt-5">
                     <div class="card-body">
                         <div class="card-header">
 
@@ -211,29 +213,25 @@
                             
                         </div>
                         <div class="card-body">
-
-                                <div class="row">
-                                  @if(!empty($list_images))
-                                    @foreach($list_images as $image)
-                                      <div class="col-lg-3 p-2 text-center" id="dv{{ $image->id }}">
-                                        <div class="image-container">
-                                              <img class="responsive-image" src="{{ asset( config('constants.PRODUCT_IMAGE_PATH').$image->image_name ) }}" alt="{{ $product->image_name }}" class="img-thumbnail">
-                                        </div>
-                                        <button class="btn btn-outline-danger mt-1 dtlimg" imgId="{{ $image->id }}"><i class="fa fa-trash"></i>  Delete Image</button>
-                                      </div>
-                                    @endforeach
-                                  @else
-                                    <div class="col-md-12">
-                                      <p class="text-center">No Image Found</p>
-                                    </div>
-                                  @endif
-                                  
+                          <div class="row">
+                            @if(!empty($list_images))
+                              @foreach($list_images as $image)
+                                <div class="col-lg-3 p-2 text-center" id="dv{{ $image->id }}">
+                                  <div class="image-container">
+                                    <img class="responsive-image" src="{{ asset( config('constants.PRODUCT_IMAGE_PATH').$image->image_name ) }}" alt="{{ $product->image_name }}" class="img-thumbnail">
+                                  </div>
+                                  <button class="btn btn-outline-danger mt-1 dtlimg" imgId="{{ $image->id }}"><i class="fa fa-trash"></i>  Delete Image</button>
                                 </div>
-                            
-
+                              @endforeach
+                            @else
+                              <div class="col-md-12">
+                                <p class="text-center">No Image Found</p>
+                              </div>
+                            @endif  
+                          </div>
                         </div>
                     </div>
-                  </div>
+                  </div> --}}
                   <div class="d-flex justify-content-end">
                     <a href="{{ route('admin.product.list')}}" class="btn btn-secondary ml-2"><i class="fa fa-angle-left" aria-hidden="true"></i>&nbsp; Back To List</a>
                   </div> 
@@ -326,8 +324,8 @@
 function toggle(source) {
     var checkboxes = document.querySelectorAll('.boxcheck');
     for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i] != source)
-            checkboxes[i].checked = source.checked;
+      if (checkboxes[i] != source)
+      checkboxes[i].checked = source.checked;
     }
 }
      
