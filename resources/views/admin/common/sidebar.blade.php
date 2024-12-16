@@ -6,7 +6,7 @@ $user = Auth::guard('admin')->user();
     <!-- Brand Logo -->
     <a href="{{route('admin.dashboard')}}" class="brand-link ">
       <img src="{{ asset('img/logo1.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <p>Admin</p>
+      <p>Admin Panel</p>
       {{-- <span class="brand-text font-weight-light">{{ $user->account_type; }}</span> --}}
     </a>
 
@@ -18,7 +18,7 @@ $user = Auth::guard('admin')->user();
           <img src="{{ asset('img/avtar.png') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ $user->name; }}</a>
+          <a href="{{ route('admin.profile') }}" class="d-block">{{ $user->name; }}</a>
         </div>
       </div>
       

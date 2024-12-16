@@ -33,10 +33,28 @@ class ProductController extends Controller
         
     }
 
-    public function index(){
+    public function index(Request $request){
 
         $data = array();
-        $data['products'] = Product::with('product_categories.categories')->paginate(1);
+        $search = $request->input('search', '');
+        $data['search'] = $search;
+
+        $filterCategory = $request->input('category', '');
+        $data['filterCategory'] = $filterCategory;
+
+        $query = Product::with('product_categories.categories');
+
+        if($search != ""){
+            $query->where('product_name', 'like', '%' . $search . '%');
+        }
+
+        if (!empty($filterCategory)) {
+            $query->whereHas('categories', function ($q) use ($filterCategory) {
+                $q->where('category_name', 'like', '%' . $filterCategory . '%');
+            });
+        }
+
+        $data['products'] = $query->get();
        
 
         return view('admin.maincontents.product.index', $data);
@@ -432,7 +450,7 @@ class ProductController extends Controller
         // $data['varient_products'] = ProductVarient::with(['varient_attributes.attribute_values'=> function ($query) {
         //     $query->whereIn('attribute_id', [1, 2]);
         // }])->where('product_id', $product_id)->get();
-        $data['products'] = ProductVarient::with(['attributesWithValues', 'productImages.attributeValue'])->get()->toArray();
+        $data['products'] = ProductVarient::with(['attributesWithValues', 'productImages.attributeValue'])->where('product_id', $product_id)->get();
         // dd($data['products']);
         $data['product_color_attributes'] = DB::table('varient_attributes AS VA')
                                             ->select('VA.attribute_value_id', DB::raw('MAX(AV.value_name) AS value_name'), DB::raw('MAX(AV.hexa_color_code) AS color_code'))

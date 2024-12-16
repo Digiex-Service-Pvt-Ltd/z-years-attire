@@ -26,7 +26,31 @@
 <div class="content">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-12">
+      <div class="col-lg-6">
+        <form class="form-inline" action="{{ route('admin.product.list')}}" method="GET">
+          <div class="form-group  ">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+          </div>
+          <select class="custom-select mr-sm-2" name="category" onchange="this.form()">
+            <option value="" {{ $filterCategory == '' ? 'selected' : '' }}>Search By Category</option>
+            @foreach($products as $product)
+              @foreach($product->product_categories as $product_category)
+                <option value="{{ $product_category->categories->category_name }}" 
+                  {{ $filterCategory == $product_category->categories->category_name ? 'selected' : '' }}>
+                  {{ $product_category->categories->category_name }}
+                </option>
+              @endforeach
+            @endforeach
+          </select>
+          <select class="custom-select mr-sm-2">
+            <option selected>Search By Status</option>
+            <option value="1">Active</option>
+            <option value="2">InActive</option>
+          </select>
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" value="{{$search}}">Search</button>
+        </form>
+      </div>
+      <div class="col-lg-6">
         <a class="btn btn-outline-primary float-right" href="{{ route('admin.product.create.main') }}" role="button" style="margin-bottom: 10px;"><i class="fas fa-plus"></i> Add</a>
       </div>
     </div>
@@ -99,9 +123,9 @@
     </div>
     <!-- /.row -->
     <!-- Display pagination links -->
-    <div class="d-flex justify-content-center">
+    {{-- <div class="d-flex justify-content-center">
       {{ $products->links() }}
-    </div>
+    </div> --}}
   </div><!-- /.container-fluid -->
 </div>
 <!-- /.content -->   

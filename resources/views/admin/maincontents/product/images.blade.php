@@ -139,14 +139,14 @@
                                           <tbody>
                                               @if(!empty($products))
                                                 @foreach($products as $varient)
-                                                  @if(!empty($varient['attributes_with_values']))
+                                                  @if(!empty($varient['attributesWithValues']))
                                                     <tr>
                                                       <td class="text-center">
                                                         <div class="form-check">
                                                           <input class="form-check-input boxcheck" name="varents_id[]" type="checkbox" value="{{ $varient['id'] }}" id="flexCheckDefault{{ $varient['id'] }}">
                                                         </div>
                                                       </td>
-                                                      @foreach ($varient['attributes_with_values'] as $vattr)
+                                                      @foreach ($varient['attributesWithValues'] as $vattr)
                                                         <td class="text-center">{{ $vattr["value_name"] }}</td>
                                                       @endforeach
                                                       <td class="text-center">
