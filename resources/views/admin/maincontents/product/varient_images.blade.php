@@ -21,7 +21,7 @@
                     @endforeach
                 </div>
             @else
-                <a href="{{ route('admin.product.image',{$product_id})}}" class="text-center text-secondary">
+                <a href="{{ route('admin.product.list')}}" class="text-center text-secondary">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     No Image Found Please Add Image
                 </a>
