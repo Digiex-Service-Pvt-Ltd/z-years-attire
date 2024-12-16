@@ -262,11 +262,28 @@
 
         //-----------------------------------------------------//
 
-        //Delete Menu Row
+        //Delete Menu Row 
         $('.btnRemoveNew').on('click', function(e){
+
+            $('li').each(function() {
+            let catID = $(this).attr('data-id');
+                if (catID == 1 || catID == 2) {
+                    $(this).prop('disabled', true);
+                }
+            });
             
             e.preventDefault();
             let catID = $(this).closest('li').attr('data-id');
+
+            if (catID == 1 || catID == 2) {
+            Swal.fire({
+                title: "Action not allowed!",
+                text: "This category cannot be able to deleted.",
+                icon: "info",
+                confirmButtonColor: "#3085d6",
+            });
+            return;
+            }
 
             Swal.fire({
                 title: "Are you sure?",
