@@ -344,8 +344,10 @@ class ProductController extends Controller
                             ->pluck('combination')->toArray();
 
         //Get list of varient products
-        $data['varient_products'] = ProductVarient::with(['varient_attributes.attribute_values'])->where('product_id', $id)->get(); 
+        $data['varient_products'] = ProductVarient::with(['varient_attributes.attribute_values','productImages'])->where('product_id', $id)->get(); 
         // echo dd($data['varient_products']);
+        // $data['varient_product']=ProductVarient::with(['productImages'])->get();
+        // dd($data['varient_product']);
         //echo "<pre>"; print_r($data['combinations']);
         // echo "<pre>"; print_r($data["ex_comb"]);
         // die();
@@ -402,6 +404,15 @@ class ProductController extends Controller
 
         return response()->json(['status'=>'success', 'msg'=>'Varient updated successfully.']);
 
+    }
+
+    public function image_varient(Request $request, $varient_id)
+    {
+        $data=array();
+        $data['varient_product']=ProductVarient::with(['productImages'])->find($varient_id);
+        // dd($data['varient_product']);
+
+        return view('admin.maincontents.product.varient_images', $data);
     }
 
     public function delete_varient(Request $request, $varient_id)

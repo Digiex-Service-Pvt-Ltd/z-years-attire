@@ -164,7 +164,9 @@
                                   <button type="button" class="btn varUp" vid={{ $varient->id }}><i class="far fa-edit text-primary"></i></button>
                                 </th>
                                 <th scope="col" style="width:2%">
-                                  <button type="button" class="btn" vid={{ $varient->id }}><i class="fa fa-file-image text-secondary" aria-hidden="true"></i></button>
+                                  <button type="button" class="btn btnEditNew" data-vid="{{ $varient->id }}">
+                                    <i class="fa fa-file-image text-secondary" aria-hidden="true"></i>
+                                  </button>
                                 </th>
                                 <th scope="col" style="width:2%">
                                   <button type="button" class="btn varDelete" vid={{ $varient->id }}><i class="far fa-trash-alt text-danger"></i></button>
@@ -194,6 +196,17 @@
   </div><!-- /.container-fluid -->
 </div>
 <!-- /.content -->
+
+{{-- Load Image Pop_Up For Varients Products --}}
+<div class="modal fade" id="recordModal" tabindex="-1" role="dialog" aria-labelledby="recordModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <!-- Dynamic content will be loaded here -->
+      </div>
+  </div>
+</div>
+
+
 @push('PAGE_ASSETS_JS')
 <script>
   jQuery(document).ready(function () {
@@ -268,6 +281,25 @@
 
 
     })
+
+    //View Image by varient
+    $('.btnEditNew').on('click', function(e) {
+    e.preventDefault();
+    let vid = $(this).attr('data-vid');
+    let urlP = "{{ route('admin.product.varient.images', 'urlpath') }}";
+        urlP = urlP.replace('urlpath', vid);
+      $.ajax({
+        url: urlP,
+        type: 'GET',
+        success: function(data) {
+        $('#recordModal').html(data);
+        $('#recordModal').modal('show');
+        },
+        error: function() {
+        alert('Failed to fetch record data.');
+        }
+        });
+      });
 
     //Delete varient
     $('.varDelete').on('click', function(e){

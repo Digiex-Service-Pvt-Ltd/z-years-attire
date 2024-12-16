@@ -251,6 +251,8 @@
 <!-- /.content -->
 @push('PAGE_ASSETS_JS')
 <script>
+
+  // Image Delete function
   jQuery(document).ready(function () {
       $('.dtlimg').on('click', function(e){
 
@@ -311,6 +313,7 @@
           
   })
 
+  // Select Value On Change
   function changeValue(valueId)
   {
      let url = '{{ route("admin.product.images.value", [$product->id, "VALUEID"]) }}';
@@ -319,7 +322,7 @@
      window.location.href = url;
   }
 
-
+// All Check Box Select 
 function toggle(source) {
     var checkboxes = document.querySelectorAll('.boxcheck');
     for (var i = 0; i < checkboxes.length; i++) {
