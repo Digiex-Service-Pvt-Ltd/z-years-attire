@@ -43,13 +43,15 @@ class ProductController extends Controller
         $data['filterCategory'] = $filterCategory;
 
         $query = Product::with('product_categories.categories');
+        $data['categories'] = Category::get();
+        // dd($data['categories']);
 
         if($search != ""){
             $query->where('product_name', 'like', '%' . $search . '%');
         }
 
         if (!empty($filterCategory)) {
-            $query->whereHas('categories', function ($q) use ($filterCategory) {
+            $query->whereHas('product_categories.categories', function ($q) use ($filterCategory) {
                 $q->where('category_name', 'like', '%' . $filterCategory . '%');
             });
         }
