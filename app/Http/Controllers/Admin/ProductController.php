@@ -33,10 +33,39 @@ class ProductController extends Controller
         
     }
 
-    public function index(){
+    public function index(Request $request){
 
         $data = array();
-        $data['products'] = Product::with('product_categories.categories')->paginate(50);
+       
+        $filterCategory = $request->input('category', '');
+        $data['filterCategory'] = $filterCategory;
+
+        $filterStatus = $request->input('status', '');
+        $data['filterStatus'] = $filterStatus;
+
+        
+        $data['categories'] = Category::get();
+        // dd($data['categories']);
+
+        $query = Product::with('product_categories.categories');
+
+        $data['pname'] = "";
+        if($request->has('search')){
+            $query->where('product_name', 'like', '%' . $request->get('search') . '%');
+            $data['pname'] = $request->get('search');
+        }
+
+        if (!empty($filterCategory)) {
+            $query->whereHas('product_categories.categories', function ($q) use ($filterCategory) {
+                $q->where('category_name', 'like', '%' . $filterCategory . '%');
+            });
+        }
+
+        if (!empty($filterStatus)) {
+            $query->where('status', '=', '%' . $filterStatus . '%');
+        }
+
+        $data['products'] = $query->paginate(2);
        
 
         return view('admin.maincontents.product.index', $data);
@@ -344,8 +373,10 @@ class ProductController extends Controller
                             ->pluck('combination')->toArray();
 
         //Get list of varient products
-        $data['varient_products'] = ProductVarient::with(['varient_attributes.attribute_values'])->where('product_id', $id)->get(); 
+        $data['varient_products'] = ProductVarient::with(['varient_attributes.attribute_values','productImages'])->where('product_id', $id)->get(); 
         // echo dd($data['varient_products']);
+        // $data['varient_product']=ProductVarient::with(['productImages'])->get();
+        // dd($data['varient_product']);
         //echo "<pre>"; print_r($data['combinations']);
         // echo "<pre>"; print_r($data["ex_comb"]);
         // die();
@@ -404,6 +435,15 @@ class ProductController extends Controller
 
     }
 
+    public function image_varient(Request $request, $varient_id)
+    {
+        $data=array();
+        $data['varient_product']=ProductVarient::with(['productImages'])->find($varient_id);
+        // dd($data['varient_product']);
+
+        return view('admin.maincontents.product.varient_images', $data);
+    }
+
     public function delete_varient(Request $request, $varient_id)
     {
         //delete from product_varient table
@@ -421,7 +461,7 @@ class ProductController extends Controller
         // $data['varient_products'] = ProductVarient::with(['varient_attributes.attribute_values'=> function ($query) {
         //     $query->whereIn('attribute_id', [1, 2]);
         // }])->where('product_id', $product_id)->get();
-        $data['products'] = ProductVarient::with(['attributesWithValues', 'productImages.attributeValue'])->get()->toArray();
+        $data['products'] = ProductVarient::with(['attributesWithValues', 'productImages.attributeValue'])->where('product_id', $product_id)->get();
         // dd($data['products']);
         $data['product_color_attributes'] = DB::table('varient_attributes AS VA')
                                             ->select('VA.attribute_value_id', DB::raw('MAX(AV.value_name) AS value_name'), DB::raw('MAX(AV.hexa_color_code) AS color_code'))

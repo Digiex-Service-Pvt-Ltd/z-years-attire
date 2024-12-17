@@ -104,6 +104,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
             Route::get('varient/{id}', [ProductController::class, 'manage_varient'])->name('varient');
             Route::post('varient/add/{product_id}', [ProductController::class, 'add_varient'])->name('varient.add');
             Route::post('varient/update/{varient_id}', [ProductController::class, 'update_varient'])->name('varient.update');
+            Route::get('varient/images/{varient_id}',[ProductController::class, 'image_varient'])->name('varient.images');
             Route::post('varient/delete/{varient_id}', [ProductController::class, 'delete_varient'])->name('varient.delete');
 
             //Routes for product images

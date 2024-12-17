@@ -4,7 +4,7 @@
     <input type="hidden" id="cid" name="id" value="{{ $cat_details->id }}" >
     <input type="hidden" id="exnm" name="existing_img" value="{{ $cat_details->image }}" >   
     <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header bg-secondary">
             <h5 class="modal-title" id="recordModalLabel">Edit Category</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
