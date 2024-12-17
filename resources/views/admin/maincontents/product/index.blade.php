@@ -29,7 +29,7 @@
       <div class="col-lg-8">
         <form class="form-inline" action="{{ route('admin.product.list')}}" method="GET">
           <div class="form-group  ">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" value="{{ $pname }}">
           </div>
           <select class="custom-select mr-sm-2" name="category" onchange="this.form()">
             <option value="" {{ $filterCategory == '' ? 'selected' : '' }}>Search By Category</option>
@@ -40,12 +40,12 @@
                 </option>
               @endforeach
           </select>
-          <select class="custom-select mr-sm-2">
-            <option selected>Search By Status</option>
-            <option value="1">Active</option>
-            <option value="2">InActive</option>
+          <select class="custom-select mr-sm-2" name="status" onchange="this.form()">
+            <option selected value=""{{$filterStatus == '' ? 'selected':''}}>Search By Status</option>
+            <option value="0"{{$filterStatus == '0' ? 'selected':''}}>Published</option>
+            <option value="1"{{$filterStatus == '1' ? 'selected':''}}>Unpublished</option>
           </select>
-          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" value="{{$search}}">Search</button>
+          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" value="search">Search</button>
         </form>
       </div>
       <div class="col-lg-4">
@@ -121,9 +121,9 @@
     </div>
     <!-- /.row -->
     <!-- Display pagination links -->
-    {{-- <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center">
       {{ $products->links() }}
-    </div> --}}
+    </div>
   </div><!-- /.container-fluid -->
 </div>
 <!-- /.content -->   

@@ -36,18 +36,23 @@ class ProductController extends Controller
     public function index(Request $request){
 
         $data = array();
-        $search = $request->input('search', '');
-        $data['search'] = $search;
-
+       
         $filterCategory = $request->input('category', '');
         $data['filterCategory'] = $filterCategory;
 
-        $query = Product::with('product_categories.categories');
+        $filterStatus = $request->input('status', '');
+        $data['filterStatus'] = $filterStatus;
+
+        
         $data['categories'] = Category::get();
         // dd($data['categories']);
 
-        if($search != ""){
-            $query->where('product_name', 'like', '%' . $search . '%');
+        $query = Product::with('product_categories.categories');
+
+        $data['pname'] = "";
+        if($request->has('search')){
+            $query->where('product_name', 'like', '%' . $request->get('search') . '%');
+            $data['pname'] = $request->get('search');
         }
 
         if (!empty($filterCategory)) {
@@ -56,7 +61,11 @@ class ProductController extends Controller
             });
         }
 
-        $data['products'] = $query->get();
+        if (!empty($filterStatus)) {
+            $query->where('status', '=', '%' . $filterStatus . '%');
+        }
+
+        $data['products'] = $query->paginate(2);
        
 
         return view('admin.maincontents.product.index', $data);
