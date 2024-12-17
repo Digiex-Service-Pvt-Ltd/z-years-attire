@@ -31,6 +31,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="{{ asset('js/owl.carousel.min.js')}}"></script>
 <script src="{{ asset('js/myscript-js.js')}}"></script>
+@stack('PAGE_ASSETS_JS')
 
 </body>
 </html>

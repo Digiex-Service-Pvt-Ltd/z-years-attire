@@ -45,10 +45,10 @@
                     <div class="sortby">
                         <p>Sort By: </p>
                         <select>
-                            <option>Sort By :<span>What's New</span></option>
-                            <option>Most Popular</option>
-                            <option>Most Rated </option>
-                            <option>Date </option>
+                            <option value="">Sort By : What's New</option>
+                            <option value="">Most Popular</option>
+                            <option value="">Most Rated </option>
+                            <option value="">Date </option>
                         </select>
                     </div>
                 </div>
@@ -59,112 +59,7 @@
             <section class="mt-30down">
                 <div class="row">
                     <div class="col-lg-2 mt-3">
-                        <div class="categoriesimgdetailsleft">
-
-                            <!-- ---- Category Section start :: Start --- -->
-                            <div class="categoriesleft">
-                                <h5>Categories</h5>
-                                <div class="categoriesleftlist">
-                                    <ul>
-                                        <li><a href="">
-                                            <div class="categoriesleftlistcheck">
-                                            <input type="checkbox">Jeans</div>
-                                        </a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- ---- Category Section :: End --- -->
-
-                            <!-- -------- Product attributes section :: Start --------- -->
-                            @if($attributes->isNotEmpty())
-                                @foreach($attributes as $attribute)
-                                    
-                                @if($attribute->id == 1)
-                                        <!-- For color attribute -->
-                                        <div class="colorbox">
-                                            <h5>{{ $attribute->attribute_name }}</h5>
-                                            @if($attribute->attribute_values->isNotEmpty())
-                                                @foreach($attribute->attribute_values as $attribute_value)
-                                                    <div class="colorboxmain mt-10down">
-                                                        <div class="colorboxmain1">
-                                                            <input type="checkbox" value="{{ $attribute_value->id }}">
-                                                            <div style="background-color: {{ $attribute_value->hexa_color_code }}"></div>
-                                                            <p>{{ $attribute_value->value_name }}</p>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            @endif
-                                        </div>
-                                        
-                                    @else
-                                        <!-- For other attributes -->
-                                        <div class="sizebox">
-                                            <h5>{{ $attribute->attribute_name }}</h5>
-                                            <div class="sizeboxmain">
-                                                @if($attribute->attribute_values->isNotEmpty())
-                                                <ul>
-                                                    @foreach($attribute->attribute_values as $attribute_value)
-                                                        <li class="mt-20down">
-                                                            <div class="sizeboxmain1">
-                                                                <input type="checkbox" value="{{ $attribute_value->id }}">
-                                                                <p><a href="#">{{ $attribute_value->value_name }}</a></p>
-                                                            </div>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    @endif
-                                        
-
-                                @endforeach
-                            @endif
-                            
-                            <!---------- Product attributes section :: End ----------->
-
-                            <!------------------------ color---------------------------->
-
-                            {{-- <section>
-                                <div class="colorbox">
-                                    <h5>Colour</h5>
-                                        <div class="colorboxmain mt-10down">
-                                            <div class="colorboxmain1">
-                                                <input type="checkbox">
-                                                <div style="background-color: #b87145;"></div>
-                                                <p>Orange</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section> --}}
-
-                            <!------------------ colorend ------------------------->
-
-
-                            <!--------------- Filter by price :: Start -------------------->
-                            <section>
-                                <div class="pricebox ">
-                                    <h5>Price</h5>
-                                    <h6>Price Range :<span> <i class="fa-solid fa-indian-rupee-sign"></i> 0 - <i
-                                                class="fa-solid fa-indian-rupee-sign"></i> 1200 </span></h6>
-                                    <div class="pricevalue">
-                                        <input type="range" min="0" max="1200" class="accent">
-                                    </div>
-                                    <div class="pricevalue1">
-                                        <div class="pricevalue_1">
-                                            <p> <i class="fa-solid fa-indian-rupee-sign"></i> 0 </p>
-                                            <p> <i class="fa-solid fa-indian-rupee-sign"></i> 1200</p>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </section>
-                            <!--------------- Filter by price :: End -------------------->
-
-
-
-                        </div>
+                        @include('maincontents.product.filter_section')
                     </div>
 
                     <!-- ------------------------------------------------------------------ -->
@@ -178,11 +73,15 @@
                                 <!-- Loop start for showing product -->
                                 @if(!empty($products))
                                     @foreach($products as $varient_product)
+                                    @php 
+                                    //echo "<pre>"; print_r($varient_product->attributesWithValues); die();
+                                    $p_image_path = ( !empty($varient_product->product_images) && $varient_product->product_images->first()->image_name !="") ? asset(config('constants.PRODUCT_IMAGE_PATH'). $varient_product->product_images->first()->image_name) : asset('img/boxed-bg.jpg')
+                                    @endphp
                                         <div class="col-lg-3 mt-3">
                                             <div class="categoriesrightbox">
                                                 <div class="categoriesrightboximg">
                                                     <div class="categoriesrightboximg1">
-                                                        <img src="img/categories-1.jpg" alt="" class="img-fluid">
+                                                        <img src="{{ asset($p_image_path) }}" alt="" class="img-fluid">
 
                                                         <div class="categoriesrightboximg1addtocart">
                                                             <i class="fa-solid fa-cart-shopping"></i>
@@ -195,9 +94,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="categoriesrightboxtext">
-                                                    <h5>Woman</h5>
-                                                    <h6>Brown paperbag waist pencil skirt</h6>
-                                                    <p><i class="fa-solid fa-indian-rupee-sign"></i> 200.00</p>
+                                                    <h5>
+                                                        @foreach($varient_product->attributesWithValues as $attrArr)
+                                                            {{ $attrArr->attributes->attribute_name }} : {{ $attrArr->value_name }}
+                                                        @endforeach
+                                                    </h5>
+                                                    <h6>{{ $varient_product->variant_name }}</h6>
+                                                    <p><i class="fa-solid fa-indian-rupee-sign"></i> {{ $varient_product->price }}</p>
 
                                                 </div>
                                             </div>
@@ -225,5 +128,9 @@
     </section>
 
 </section>
+
+@push('PAGE_ASSETS_JS')
+
+@endpush
 
 @endsection

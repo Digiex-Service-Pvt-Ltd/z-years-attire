@@ -36,7 +36,7 @@ class ProductController extends Controller
     public function index(){
 
         $data = array();
-        $data['products'] = Product::with('product_categories.categories')->paginate(1);
+        $data['products'] = Product::with('product_categories.categories')->paginate(50);
        
 
         return view('admin.maincontents.product.index', $data);
