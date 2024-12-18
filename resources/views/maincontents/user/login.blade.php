@@ -5,7 +5,7 @@
 
     <!-- ======= Breadcrumbs ======= -->
     <section id="breadcrumbs" class="breadcrumbs">
-      <div class="container">
+      {{-- <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
           <h2>User Login</h2>
@@ -15,7 +15,7 @@
           </ol>
         </div>
 
-      </div>
+      </div> --}}
     </section><!-- End Breadcrumbs -->
     
     <section id="" class="about-us">
@@ -44,6 +44,9 @@
                       {{ $message }}
                     @enderror
                   </span>
+              </div>
+              <div>
+                <a href="{{Route('user.registration')}}"><p>Click Here To Registration</p></a>
               </div>
               
               <div class="mt-3"><button type="submit">Submit</button></div>

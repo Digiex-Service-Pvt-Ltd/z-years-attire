@@ -5,7 +5,7 @@
 
     <!-- ======= Breadcrumbs ======= -->
     <section id="breadcrumbs" class="breadcrumbs">
-      <div class="container">
+      {{-- <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
           <h2>User Registration</h2>
@@ -15,7 +15,7 @@
           </ol>
         </div>
 
-      </div>
+      </div> --}}
     </section><!-- End Breadcrumbs -->
     
     <section id="" class="about-us">
