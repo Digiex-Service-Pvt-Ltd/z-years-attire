@@ -554,7 +554,7 @@ class ProductController extends Controller
     public function manage_meta_details($id)
     {
         $data = array();
-        $data['product'] = Product::findorfail($id)->toArray();
+        $data['product'] = Product::findorfail($id);
         
         $data['meta_details'] = MetaManagement::where(['section'=>'product', 'item_id'=>$id])->first();
         //dd($data['meta_details']);

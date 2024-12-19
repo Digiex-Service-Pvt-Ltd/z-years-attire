@@ -124,15 +124,20 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
         //Route::resource('pages', PageController::class);
 
-        // admin change password //
+        Route::get('userdata', [SettingController::class, 'user_data'])->name('userdata');
+
+        //---------- admin change password ----------//
         Route::get('changepassword', [SettingController::class, 'index'])->name('changepassword');
         Route::post('changepassword', [SettingController::class, 'change_password'])->name('changepassword.submit');
+        //-------------------------------------------------------//
 
-        // admin profile 
+        //---------- admin profile ----------//
         Route::get('profile', [SettingController::class, 'profile'])->name('profile');
+        //-------------------------------------------------------// 
 
-        //admin logout
+        //---------- admin logout ----------//
         Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout'); //Submit logout
+        //-------------------------------------------------------//
     });
 
 });

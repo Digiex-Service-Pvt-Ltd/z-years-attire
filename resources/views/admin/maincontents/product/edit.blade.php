@@ -33,13 +33,7 @@
       <div class="row">
         <div class="col-lg-3">
           <div class="col-lg-12">
-            <div class="list-group">
-                <a href="{{ route('admin.product.edit', $product->id) }}" class="list-group-item list-group-item-action active" aria-current="true" disabled>Edit Product</a>
-                <a href="{{ route('admin.product.varient', $product->id) }}" class="list-group-item list-group-item-action">Manage Varients</a>
-                <a href="{{ route('admin.product.images', $product->id) }}" class="list-group-item list-group-item-action">Upload Images</a>
-                <a href="{{ route('admin.product.meta', $product->id)}}" class="list-group-item list-group-item-action">Manage Meta Details</a>
-            </div>
-           
+            @include('admin.common.product-navbar')
           </div>
           <div class="col-lg-12 pt-3">
             <div class="card">
