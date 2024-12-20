@@ -23,9 +23,9 @@ class HomeController extends Controller
         $data['featured_categories'] = Category::where('is_featured', 1)->get();
 
         $params = array('limit'=>'16');
-        $data['products'] = $this->prodMdlObj->get_varient_product_list($params);
-        //dd($data["products"]);
-
+        $products = $this->prodMdlObj->get_products_with_filter($params);
+        $data["products"] = $products['result'];
+        //echo "<pre>"; print_r($data["products"]); die();
         return view('maincontents/home', $data);
     }
     

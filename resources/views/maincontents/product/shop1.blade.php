@@ -77,7 +77,7 @@
                                             @foreach($product->product_varients as $variant)
 
                                                         @php 
-                                                        //dd($variant->productImages->first()->image_name);
+                                                        //echo "<pre>"; print_r($product->product_varients->toArray()); die();
                                                         $p_image_path = ( !empty($variant->productImages->first()) && $variant->productImages->first()->image_name!="") ? asset(config('constants.PRODUCT_IMAGE_PATH').$variant->productImages->first()->image_name) : asset('img/boxed-bg.jpg')
                                                         @endphp
                                                             <div class="col-lg-3 mt-3">
@@ -97,12 +97,12 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="categoriesrightboxtext">
-                                                                        {{-- <h5>
-                                                                            @foreach($varient_product['attributes_with_values'] as $attrArr)
-                                                                                {{ $attrArr["attributes"]['attribute_name'] }} : {{ $attrArr["value_name"] }}
+                                                                        <h5>
+                                                                            @foreach($variant->attributesWithValues as $attrArr)
+                                                                                {{ $attrArr->attributes->attribute_name }} : {{ $attrArr->value_name }}
                                                                             @endforeach
-                                                                        </h5> --}}
-                                                                        <h6>{{ $variant->variant_name }} {{ $variant->attributesWithValues->where('attribute_id', '1')->first()->value_name }} </h6>
+                                                                        </h5>
+                                                                        <h6>{{ $variant->variant_name }} </h6>
                                                                         <p><i class="fa-solid fa-indian-rupee-sign"></i> {{ $variant->price }}</p>
 
                                                                     </div>

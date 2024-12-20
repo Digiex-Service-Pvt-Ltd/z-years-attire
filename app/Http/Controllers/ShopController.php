@@ -36,10 +36,7 @@ class ShopController extends Controller
             $category = explode(",", $request->get('c'));
             $category_arr = array_merge($category, $category_arr);
         }
-        $data['selected_category'] = $category_arr;
-        //print_r($category_arr); die();
-        // $params = array('limit'=>'40', 'category_ids'=>$category_arr);
-        // $data['products'] = $this->prodMdlObj->get_varient_product_list($params);
+        $data['selected_category'] = $category_arr;        
 
         //If color attribute found in search
         $color_attr_arr = [];
@@ -56,29 +53,37 @@ class ShopController extends Controller
             $size_attr_arr = explode(",", $request->get('size'));
         }
         $data['selected_size'] = $size_attr_arr;
+
+        //If price range is found in search
+        $data['price_search_enable'] = 0; 
+        $price_range = [];
+        $min_price = 100;
+        $max_price = 5000;
+        if($request->has('min_price') && $request->has('max_price')){
+            $price_range = [$request->get('min_price'), $request->get('max_price')];
+            $min_price = $request->get('min_price');
+            $max_price = $request->get('max_price');
+            $data['price_search_enable'] = 1;
+        }
+        $data['price_range'] = $price_range;
+        $data['min_price'] = $min_price;
+        $data['max_price'] = $max_price;
         /********************************************************** */
 
         /********************************************************** */
         $params = array(
                             'category_ids' =>$category_arr, 
                             'color_ids' =>$color_attr_arr,
-                            'size_ids' =>$size_attr_arr 
+                            'size_ids' =>$size_attr_arr,
+                            'price_range_arr' => $price_range
                     );
-        $data['products'] = $this->prodMdlObj->get_products_with_filter($params);
-
+        $products = $this->prodMdlObj->get_products_with_filter($params);
+        $data['products'] =  $products['result'];             
+        $data['total_record'] =  $products['total_record'];             
 
         /********************************************************** */
 
-        // $params = array('category_ids'=>$category_arr);
-        // $data['products'] = $this->prodMdlObj->get_variants($params);
-
-        //echo "<pre>"; print_r($data['products']->toArray()); die();
-        //dd($products);
-        if(!empty($color_attr_arr || !empty($size_attr_arr)) ){
-            return view('maincontents/product/shop', $data);
-        }else{
-            return view('maincontents/product/shop1', $data);
-        }
+        return view('maincontents/product/shop', $data);
             
     }
 

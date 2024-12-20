@@ -74,12 +74,12 @@ class Product extends Model
         $limit = (is_array($params) && array_key_exists('limit', $params) && !empty($params['limit'])) ? $params['limit'] : "";
 
         //Search with color attribute value id
-        $color_attribute_value_ids = (is_array($params) && array_key_exists('color_ids', $params) && !empty($params['color_ids'])) ? $params['color_ids'] : [];; //[2, 12, 6, 5]
+        $attribute_value_ids = (is_array($params) && array_key_exists('color_ids', $params) && !empty($params['color_ids'])) ? $params['color_ids'] : [];; //[2, 12, 6, 5]
 
         //Search with categories
         $category_ids = (is_array($params) && array_key_exists('category_ids', $params) && !empty($params['category_ids'])) ? $params['category_ids'] : []; //[1, 3]
 
-        print_r($params['color_ids']); die();
+        //print_r($params['color_ids']); die();
 
 
         $products =  ProductVarient::with(['attributesWithValues', 'productImages.attributeValue', 'products.categories', 'products'])
@@ -122,20 +122,31 @@ class Product extends Model
 
         //Search with categories
         $category_ids = (is_array($params) && array_key_exists('category_ids', $params) && !empty($params['category_ids'])) ? $params['category_ids'] : []; //[1, 3]
+
+        //Search with product price
+        $product_price = (is_array($params) && array_key_exists('price_range_arr', $params) && !empty($params['price_range_arr'])) ? $params['price_range_arr'] : []; //[1, 3]
         
-        if(!empty($color_attribute_value_ids) || !empty($size_attribute_value_ids))
+        if(!empty($size_attribute_value_ids))
         {
-            $attribute_value_ids = array_merge($color_attribute_value_ids, $size_attribute_value_ids);
+            
             $products =  ProductVarient::with(['attributesWithValues', 'productImages.attributeValue', 'products.categories', 'products'])
             ->where('stock_qty', '>', '0')
             ->where('status', '=', '1')
             ->whereHas('products', function($query){
                 $query->where('status', 1);
             })
-            ->when($attribute_value_ids, function ($query) use ($attribute_value_ids) {
-                $query->whereHas('attributesWithValues', function ($query) use ($attribute_value_ids) {
-                    $query->whereIn('attribute_value_id', $attribute_value_ids);
+            ->when($color_attribute_value_ids, function($query) use ($color_attribute_value_ids){
+                $query->whereHas('attributesWithValues', function ($query) use ($color_attribute_value_ids) {
+                    $query->whereIn('attribute_value_id', $color_attribute_value_ids);
                 });
+            })
+            ->when($size_attribute_value_ids, function ($query) use ($size_attribute_value_ids) {
+                $query->whereHas('attributesWithValues', function ($query) use ($size_attribute_value_ids) {
+                    $query->whereIn('attribute_value_id', $size_attribute_value_ids);
+                });
+            })
+            ->when($product_price, function($query) use ($product_price){
+                $query->whereBetween('product_varients.price', $product_price);
             })
             ->when($category_ids, function ($query) use ($category_ids) {
                 $query->whereHas('products', function ($query) use ($category_ids) {
@@ -144,49 +155,62 @@ class Product extends Model
                     });
                 });
             })
-            ->when($limit, function($query, $limit){
-                return $query->take($limit);
-            })           
             ->orderBy('id', 'DESC')
+            ->when($limit, function($q) use ($limit){
+                $q->take($limit);
+            })
             ->get();
+            
+            
+            $total_items = $products->count();
+            
         }
         else
         {
                 $products = Product::with([
-                    'product_varients' => function ($query){
+                    'product_varients' => function ($query) use ($color_attribute_value_ids, $product_price){
                         $query->whereHas('attributesWithValues', function ($q) {
                             $q->whereHas('attributes', function ($subQuery) {
                                 $subQuery->where('id', '1');
                             });
                         })
-                        ->select('product_varients.id',  
-                                    'product_varients.product_id', 
-                                    'product_varients.variant_name', 
-                                    'product_varients.sku_code',
-                                    'product_varients.price',
-                                    'product_varients.stock_qty',
-                                    'product_varients.status',
-                                    'varient_attributes.product_varient_id',
-                                    'varient_attributes.attribute_value_id'
+                        ->when($color_attribute_value_ids, function($query) use ($color_attribute_value_ids) {
+
+                            $query->whereHas('attributesWithValues', function ($q) use ($color_attribute_value_ids) {
+                                $q->whereIn('attribute_value_id', $color_attribute_value_ids);
+                            });
+
+                        })
+                        ->addSelect(
+                                    DB::raw('MIN(product_varients.id) AS id'),  
+                                    DB::raw('MIN(product_varients.product_id) AS product_id'), 
+                                    DB::raw('MIN(product_varients.variant_name) AS variant_name'), 
+                                    DB::raw('MIN(product_varients.sku_code) AS sku_code'),
+                                    DB::raw('MIN(product_varients.price) AS price'),
+                                    DB::raw('MIN(product_varients.stock_qty) AS stock_qty'),
+                                    DB::raw('MIN(product_varients.status) AS status'),
+                                    DB::raw('MIN(varient_attributes.product_varient_id) AS product_varient_id'),
+                                    DB::raw('MIN(varient_attributes.attribute_value_id) AS attribute_value_id'),
+                                    DB::raw('MIN(attribute_values.attribute_id) AS attribute_id'),
+                                    DB::raw('COUNT(*) AS total_varients')
+                                    
                         )
                         ->addSelect(DB::raw('MIN(attribute_values.id) as color_id')) // Fetch the lowest color ID for grouping
                         ->join('varient_attributes', 'varient_attributes.product_varient_id', '=', 'product_varients.id')
-                        ->join('attribute_values', 'varient_attributes.attribute_value_id', '=', 'attribute_values.id')
+
+                        ->join('attribute_values', function ($join) {
+                            $join->on('varient_attributes.attribute_value_id', '=', 'attribute_values.id')
+                                ->where('attribute_values.attribute_id', 1); // Only fetch Color attributes
+                        })
+
                         ->join('attributes', 'attribute_values.attribute_id', '=', 'attributes.id')
-                        ->groupBy(
-
-                            'product_varients.id',  
-                                    'product_varients.product_id', 
-                                    'product_varients.variant_name', 
-                                    'product_varients.sku_code',
-                                    'product_varients.price',
-                                    'product_varients.stock_qty',
-                                    'product_varients.status',
-                                    'varient_attributes.product_varient_id',
+                        ->when($product_price, function($query) use ($product_price){
+                            $query->whereBetween('product_varients.price', $product_price);
+                        })
+                        ->groupBy(  
+                                    'product_varients.product_id',
                                     'varient_attributes.attribute_value_id'
-
-                        ) 
-                        ->having('varient_attributes.attribute_value_id', 1)
+                        )
                         ->with(['attributesWithValues.attributes', 'productImages.attributeValue']);
                     },
                     'categories',
@@ -199,42 +223,24 @@ class Product extends Model
                         });
                 
                 })
-                // ->when($color_attribute_value_ids, function ($query) use ($color_attribute_value_ids) {
-                //     $query->whereHas('product_varients', function ($query) use ($color_attribute_value_ids) {
-                //         $query->whereHas('attributesWithValues', function ($query) use ($color_attribute_value_ids) {
-                //             $query->whereIn('attribute_value_id', $color_attribute_value_ids);
-                //         });
-                        
-                //     });
-                // })
+                ->orderBy('id', 'DESC')
+                ->when($limit, function($q) use ($limit){
+                    $q->take($limit);
+                })
                 ->get();
 
+                //get total items
+                $total_items = 0;
+                if(!empty($products))
+                {
+                    foreach($products as $product){
+                        $total_items = $total_items + $product->product_varients->count();
+                    }
+                }
+
             }
-
-
-        // ->when($category_ids, function ($q) use ($category_ids) {
-        //     $q->whereHas('categories', function ($query) use ($category_ids) {
-        //         $query->whereIn('category_id', $category_ids);
-        //     });
-        // });
         
-        // Apply size filter if provided
-        // if ($request->has('size')) {
-        //     $query->whereHas('product_varients.attributesWithValues', function ($q) use ($request) {
-        //         $q->whereHas('attributes', function ($subQuery) {
-        //             $subQuery->where('attribute_name', 'Size');
-        //         })->where('value_name', $request->size);
-        //     });
-        // }
-
-
-
-              
-        //$query->orderBy('id', 'DESC');
-
-        //$products = $query->get();
-
-        return $products;
+        return array('result'=>$products, 'total_record'=>$total_items);
 
     }
 

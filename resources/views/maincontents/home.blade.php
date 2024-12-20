@@ -132,34 +132,48 @@
         </div>
         <div class="row">
                
-                    @if( !empty($products) )
-                        @foreach($products as $varient_product)
-                                @php $p_image_path = ( !empty($varient_product['product_images']) && $varient_product['product_images'][0]['image_name']!="") ? asset(config('constants.PRODUCT_IMAGE_PATH'). $varient_product['product_images'][0]['image_name']) : asset('img/boxed-bg.jpg')
-                                @endphp
-                                <div class="col-lg-3 mt-3">
-                                    <div class="newarraivalbox">
-                                        <div class="newarraivalboximg" style="background-image: url({{ asset($p_image_path)}});">
-                                            <div class="newarraivalboximg1">
-                                                <button type="button" class="btn btn-outline-light">Explore Now</button>
+            @if(!empty($products))
+                @foreach($products as $product)
+                    @if(!empty($product->product_varients))
+                        @foreach($product->product_varients as $variant)
+
+                            @php 
+                            //echo "<pre>"; print_r($product->product_varients->toArray()); die();
+                            $p_image_path = ( !empty($variant->productImages->first()) && $variant->productImages->first()->image_name!="") ? asset(config('constants.PRODUCT_IMAGE_PATH').$variant->productImages->first()->image_name) : asset('img/boxed-bg.jpg')
+                            @endphp
+                            <div class="col-lg-3 mt-3">
+                                <div class="categoriesrightbox">
+                                    <div class="categoriesrightboximg">
+                                        <div class="categoriesrightboximg1">
+                                            <img src="{{ asset($p_image_path) }}" alt="" class="img-fluid">
+
+                                            <div class="categoriesrightboximg1addtocart">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                                <p>Add To Cart</p>
+                                            </div>
+                                            <div class="categoriesrightboximg1wishlist">
+                                                <i class="fa-regular fa-heart"></i>
+                                                <!-- <p>Add To Wishlist</p> -->
                                             </div>
                                         </div>
-                                        <div class="newarraivalboxtext">
-                                            @if( !empty($varient_product['attributes_with_values']) )
-                                            <h5>
-                                                @foreach($varient_product['attributes_with_values'] as $attrArr)
-                                                    {{ $attrArr["attributes"]['attribute_name'] }} : {{ $attrArr["value_name"] }}
-                                                @endforeach
-                                            </h5>
-                                            @endif
-                                            <h4><a href="">{{ $varient_product['variant_name'] }}</a></h4>
-                                            <h6> <i class="fa-solid fa-indian-rupee-sign"></i> {{ $varient_product['price'] }}
-                                                {{-- <span>Was <i class="fa-solid fa-indian-rupee-sign"></i>  700</span>   --}}
-                                            </h6>
-                                        </div>
+                                    </div>
+                                    <div class="categoriesrightboxtext">
+                                        <h5>
+                                            @foreach($variant->attributesWithValues as $attrArr)
+                                                {{ $attrArr->attributes->attribute_name }} : {{ $attrArr->value_name }}
+                                            @endforeach
+                                        </h5>
+                                        <h6>{{ $variant->variant_name }} </h6>
+                                        <p><i class="fa-solid fa-indian-rupee-sign"></i> {{ $variant->price }}</p>
+
                                     </div>
                                 </div>
-                        @endforeach
+                            </div>
+
+                        @endforeach            
                     @endif
+                @endforeach
+            @endif     
                     
         </div>
         

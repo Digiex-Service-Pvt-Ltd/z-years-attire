@@ -65,7 +65,7 @@ class ProductController extends Controller
             $query->where('status', '=', '%' . $filterStatus . '%');
         }
 
-        $data['products'] = $query->paginate(2);
+        $data['products'] = $query->paginate(50);
        
 
         return view('admin.maincontents.product.index', $data);

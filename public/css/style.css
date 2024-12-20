@@ -1584,7 +1584,8 @@ body {
     margin: 0px;
     padding: 0px 0px;
     border-top: solid 1px #e7e7e7;
-    padding-top: 15px;
+    padding-top: 25px;
+    padding-bottom: 25px;
 
 }
 
@@ -1657,6 +1658,7 @@ body {
 .categoriesleftlistcheck input[type="checkbox"] {
     cursor: pointer;
     accent-color: rgb(82, 82, 82);
+    padding: 13px 0px;
 
 }
 
@@ -1670,12 +1672,15 @@ body {
     margin: 0px;
     padding: 15px 0px 0px 0px;
     border-top: solid 1px #e7e7e7;
+    padding-top: 25px;
+    padding-bottom: 25px;
 }
 
 .sizebox h5 {
 
     color: #707070;
     font-size: 15px;
+    margin-bottom: 30px;
 }
 
 .sizeboxmain {
@@ -1686,6 +1691,11 @@ body {
     padding-left: 6px;
 }
 
+.sizeboxmain1 label{
+
+    margin: 13px 0px;
+    font-size: 13px;
+}
 
 .sizeboxmain ul {
 
@@ -1721,7 +1731,7 @@ body {
 
 .sizeboxmain1 input[type="checkbox"] {
 
-    margin-top: -12px;
+    margin:13px 0px;
     accent-color: rgb(82, 82, 82);
     cursor: pointer;
 }
@@ -1746,7 +1756,8 @@ body {
     margin: 0px;
     padding: 0px;
     border-top: solid 1px #e7e7e7;
-    padding-top: 14px;
+    padding-top: 25px;
+    margin-bottom: 25px;
 
 }
 
@@ -1778,23 +1789,33 @@ body {
 
 .colorboxmain1 input[type="checkbox"] {
 
-    width: 15px;
-    margin-top: -18px;
-    accent-color: rgb(82, 82, 82);
+    /* width: 15px;
+    margin-top: -18px; */
+    accent-color: rgb(82, 82, 82); 
+    margin: 8px 0px;
 }
 
 .colorboxmain1 div {
 
-    width: 18px;
-    height: 18px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
     background-color: #000;
+    margin: 10px 0px;
+    border: solid 1px #d7d7d7;
+}
+
+.colorboxmain1 label{
+
+    margin: 7px 0px;
+    font-size: 13px;
 }
 
 .colorboxmain1 p {
 
     font-size: 13px;
     color: #707070;
+    margin: 4px 0px;
 }
 
 .colorboxmain1 div:nth-child(1) {
@@ -1915,7 +1936,7 @@ body {
     padding: 0px;
     width: 100%;
     display: block;
-    height: 378px;
+    height: 339px;
 }
 
 .categoriesrightboximg1 {
@@ -1925,6 +1946,13 @@ body {
     position: relative;
     overflow: hidden;
     width: 100%;
+}
+
+.categoriesrightboximg1 img{
+
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
 }
 
 .categoriesrightboximg1addtocart {
@@ -2023,7 +2051,8 @@ body {
 
     color: #CC9966;
     text-align: center;
-    font-size: 13px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .categoriesrightboxstar {
@@ -2328,6 +2357,7 @@ body {
     margin-bottom: 5px;
     display: flex;
     gap: 35px;
+  
 }
 
 
