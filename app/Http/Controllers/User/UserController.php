@@ -32,7 +32,9 @@ class UserController extends Controller
         $user->save();
 
         $request->session()->flash('msg', 'Registration completed successfully.');
-        return redirect()->back();
+        // return redirect()->back();
+
+        return redirect()->route('user.login');
     }
 
     public function login(Request $request)
@@ -58,6 +60,30 @@ class UserController extends Controller
     public function logout(){
         Auth::guard('user')->logout();
         return redirect()->route('user.login');
+    }
+
+    public function userPassword(){
+        return view('maincontents.user.passwordchange');
+    }
+
+    public function passwordChange(Request $request){
+        $request->validate([
+            'old_password' => 'required|string|min:6',
+            'new_password' => 'required|string|min:6|max:15|confirmed',
+        ]);
+
+        // Old Password Matched //
+        $currentUser = Auth::guard('user')->user();
+        $passwordStatus = Hash::check($request->old_password, $currentUser->password);
+        if($passwordStatus){
+                User::findOrFail($currentUser->id)->update([
+                'password' => Hash::make($request->new_password)
+            ]);
+            return redirect()->route('user.passwordchange')
+        ->with('success','Success! Password updated successfully.');
+        }else{
+            return redirect()->back()->with('error', 'Please enter a valid credentials.');
+        }
     }
 
 

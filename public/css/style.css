@@ -2621,6 +2621,125 @@ body {
     padding-left: 40px;
 }
 
+/*--------------login/registration----------------*/
+.loginbody{
+
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    display: block;
+    background-color: rgb(231, 231, 231);
+}
+.loginbox{
+
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
+
+.loginboxmain{
+
+    margin: 0px;
+    padding: 20px;
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    box-shadow: 6px 6px 6px rgba(192, 192, 192, 0.534);
+}
+
+
+.loginboxmainlogo{
+
+    margin: 0px auto;
+    padding: 0px;
+    width: 100%;
+    display: table;
+}
+
+.loginboxmainlogo img{
+
+    margin: 0px auto;
+    padding: 0px;
+    width: 100%;
+    display: table;
+}
+
+.loginboxmainlogin{
+
+    margin: 0px 0px;
+    padding: 0px;
+}
+
+.loginboxmainlogin h4{
+
+    color: rgb(146, 146, 146);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+
+.loginboxmainloginform{
+
+    margin: 10px 0px;
+    padding: 0px;
+}
+
+.loginboxmainloginform label{
+
+    color: rgb(146, 146, 146);
+}
+
+.loginboxmainloginform input{
+
+    width: 100%;
+    display: block;
+    margin: 8px 0px;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: solid 1px #bbbbbb;
+    font-size: 14px;
+    color: black;
+}
+
+.loginboxmainloginform button{
+
+    margin-top: 20px !important;
+    margin: 0 auto;
+    display: table;
+    padding: 5px 80px;
+}
+
+.loginboxmainloginform p{
+
+    color:rgb(141, 141, 141) ;
+    margin: 20px 0px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.loginboxmainloginform p span a{
+
+    color:rgb(141, 141, 141);
+    text-decoration: none;
+}
+
+.form-control:focus{
+
+    outline: none !important;
+    box-shadow: none;
+    border-bottom: solid 2px #CC9966;
+}
+
+
+
 /*--------------responsive----------------*/
 
 @media(max-width:991px) {

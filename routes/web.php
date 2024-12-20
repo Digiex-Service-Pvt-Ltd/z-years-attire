@@ -35,7 +35,7 @@ Route::prefix('user')->name('user.')->group(function(){
     Route::middleware(['guest:user'])->group(function(){
         Route::get('register', function(){
             return view('maincontents.user.register');
-        });
+        })->name('registration');
         Route::post('register', [UserController::class, 'save_register_data'])->name('submit.registration');
         Route::get('login', function(){
             return view('maincontents.user.login');
@@ -47,6 +47,8 @@ Route::prefix('user')->name('user.')->group(function(){
     Route::middleware(['auth:user'])->group(function(){
         Route::get('profile', [UserController::class, 'profile'])->name('profile');
         Route::post('logout', [UserController::class, 'logout'])->name('logout');
+        Route::get('passwordchange', [UserController::class, 'userPassword'])->name('passwordchange');
+        Route::post('passwordchange', [UserController::class, 'passwordChange'])->name('passwordchange.submit');
     });
 
 });
@@ -122,15 +124,20 @@ Route::prefix('admin')->name('admin.')->group(function(){
 
         //Route::resource('pages', PageController::class);
 
-        // admin change password //
+        Route::get('userdata', [SettingController::class, 'user_data'])->name('userdata');
+
+        //---------- admin change password ----------//
         Route::get('changepassword', [SettingController::class, 'index'])->name('changepassword');
         Route::post('changepassword', [SettingController::class, 'change_password'])->name('changepassword.submit');
+        //-------------------------------------------------------//
 
-        // admin profile 
+        //---------- admin profile ----------//
         Route::get('profile', [SettingController::class, 'profile'])->name('profile');
+        //-------------------------------------------------------// 
 
-        //admin logout
+        //---------- admin logout ----------//
         Route::post('logout', [AdminLoginController::class, 'logout'])->name('logout'); //Submit logout
+        //-------------------------------------------------------//
     });
 
 });

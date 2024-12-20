@@ -33,12 +33,7 @@
       <div class="row">
         <div class="col-lg-3">
           <div class="col-lg-12">
-            <div class="list-group">
-                <a href="{{route('admin.product.edit',$product['id'])}}" class="list-group-item list-group-item-action" aria-current="true" disabled>Edit Product</a>
-                <a href="{{route('admin.product.varient',$product['id'])}}" class="list-group-item list-group-item-action">Manage Varients</a>
-                <a href="{{ route('admin.product.images', $product['id']) }}" class="list-group-item list-group-item-action">Upload Images</a>
-                <a href="{{route('admin.product.meta',$product['id'])}}" class="list-group-item list-group-item-action active">Manage Meta Details</a>
-            </div>
+            @include('admin.common.product-navbar')
           </div>
           <div class="col-lg-12 pt-3">
             <div class="card">
@@ -65,8 +60,8 @@
                    @else
                    <span class="badge badge-secondary user-select-none" data-toggle="tooltip" data-placement="left" title="Please Published The Product ">Unpublished</span>
                   @endif
-                  <h4 class="pt-2">{{ $product['product_name'] }}</h4>
-                  <p class="h5"><span class="text-primary"> Price</span> &#8377 {{ $product['price'] }}</p>
+                  <h4 class="pt-2">{{ $product->product_name}}</h4>
+                  <p class="h5"><span class="text-primary"> Price</span> &#8377 {{ $product->price }}</p>
                   <div class="form-group mt-4">
                     <label for="ptitle">Meta Title <span class="required" aria-required="true"> * </span></label>
                     <input type="text" class="form-control {{($errors->first('meta_title'))?'has-error':''}}" id="ptitle" name="meta_title" value="{{ !empty($meta_details['meta_title'] ) ? $meta_details['meta_title'] : old('meta_title') }}" placeholder="Enter a name of the product.">

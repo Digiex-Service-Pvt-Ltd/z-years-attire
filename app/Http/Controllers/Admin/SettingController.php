@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use DB;
@@ -39,5 +40,14 @@ class SettingController extends Controller
 
     public function profile(){
         return view('admin.maincontents.profile.profile');
+    }
+
+    public function user_data(){
+
+        $data=array();
+        $data['userdetails'] = User::get();
+        // dd($data['userdetails']);
+
+        return view('admin.maincontents.userdata.user_data', $data);
     }
 }

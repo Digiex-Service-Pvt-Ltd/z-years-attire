@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="{{ asset('admin/css/adminlte.min.css') }}">
 </head>
 <body class="hold-transition login-page">
-<div class="login-box">
+{{-- <div class="login-box">
   <div class="login-logo">
     <a href="{{route('admin.login')}}"><img src="{{ asset('img/logo1.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"></a>
   </div>
@@ -76,8 +76,63 @@
     </div>
     <!-- /.login-card-body -->
   </div>
-</div>
+</div> --}}
 <!-- /.login-box -->
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-lg-12 ">
+          <div class="adminbody">
+              <div class="adminbodycolor">
+                  <div class="row">
+                      <div class="col-lg-7 ">
+                          <div class="adminbodycolorleft">
+                        
+                          </div>
+                      </div>
+                      <div class="col-lg-5 ">
+                          <div class="adminbodycolorright">
+                              <div class="adminbodycolorrightimg">
+                                  <img src="{{ asset('img/logo1.png') }}" alt="" class="img-fluid">
+                              </div>
+                              <div class="adminbodycolorrightform">
+                                @if( Session::has('error') )
+                                  <p class="alert alert-danger">{{ Session::get('error') }}</p>
+                                @endif
+                                  <form action="{{ route('admin.login.submit') }}" method="post" class="php-email-form">
+                                    @csrf
+                                      <label>Email</label>
+                                      <input type="email" name="email" required placeholder="">
+                                      <span class="text-danger" style="width:100%; display:inline-block">@error('email'){{$message}}@enderror</span>
+
+                                      <label>Password</label>
+                                      <input type="password" name="password" required placeholder="">
+                                      <span class="text-danger" style="width:100%; display:inline-block">@error('password'){{$message}}@enderror</span>
+
+
+                                      <button type="submit" class="btn btn-secondary">Sign In</button>
+
+                                      @if(session()->has('msg'))
+                                        <div class="text-center">{{ session()->get('msg') }}</div>
+                                      @endif
+                                  </form>
+                                  <div class="forgetpassword">
+                                      <div class="forgetpassword1">
+                                          <p><a href="">Forget Password?</a></p>
+                                      </div>
+                                      <div class="forgetpasswordsighnup">
+                                          <button type="button" class="btn btn-outline-secondary">Sign Up</button>
+                                      </div>
+
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
 
 <!-- jQuery -->
 <script src="{{ asset('admin/plugins/jquery/jquery.min.js') }}"></script>
