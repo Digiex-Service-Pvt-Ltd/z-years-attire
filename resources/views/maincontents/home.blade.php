@@ -145,7 +145,7 @@
                                 <div class="categoriesrightbox">
                                     <div class="categoriesrightboximg">
                                         <div class="categoriesrightboximg1">
-                                            <img src="{{ asset($p_image_path) }}" alt="" class="img-fluid">
+                                            <img src="{{ $p_image_path }}" alt="" class="img-fluid">
 
                                             <div class="categoriesrightboximg1addtocart">
                                                 <i class="fa-solid fa-cart-shopping"></i>

@@ -16,6 +16,8 @@ body {
 
 }
 
+a { text-decoration: none; }
+
 
 .mt-30 {
 
@@ -2223,7 +2225,7 @@ body {
 .extendedpagerightheadertext h2 {
 
     color: #707070;
-    font-size: 20px;
+    font-size: 26px;
 }
 
 .extendedpagerightheaderstar {
@@ -2277,8 +2279,9 @@ body {
 
 .extendedpagerightheaderprice p {
 
-    font-size: 18px;
+    font-size: 24px;
     color: #CC9966;
+    font-weight: 500;
 }
 
 
@@ -2300,50 +2303,30 @@ body {
     margin: 0px;
     padding: 0px;
     margin-bottom: 5px;
-    display: flex;
-    gap: 20px;
+
 }
 
 .extendedpagerightcolor p {
 
     color: #707070;
-    font-size: 14px;
+    font-size: 17px;
 }
 
 .extendedpagerightcolormain {
 
     display: flex;
     gap: 6px;
+    margin-top: -8px;
 }
 
 .extendedpagerightcolormain div {
 
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
+    width: 41px;
+    height: 41px;
+  border-radius: 10px;
     margin: 0px;
     padding: 0px;
     cursor: pointer;
-}
-
-.extendedpagerightcolormain div:nth-child(1) {
-
-    background-color: #eab656;
-}
-
-.extendedpagerightcolormain div:nth-child(2) {
-
-    background-color: #333333;
-}
-
-.extendedpagerightcolormain div:nth-child(3) {
-
-    background-color: #3a588b;
-}
-
-.extendedpagerightcolormain div:nth-child(4) {
-
-    background-color: #caab97;
 }
 
 
@@ -2354,17 +2337,16 @@ body {
 
     margin: 0px;
     padding: 0px;
-    margin-bottom: 5px;
-    display: flex;
+    margin-bottom: 2px;
     gap: 35px;
-  
 }
 
 
-.sizeBox p {
+.sizeBox > p {
 
     color: #707070;
-    font-size: 14px;
+    font-size: 17px;
+    margin-top: 25px;
 
 }
 
@@ -2380,18 +2362,23 @@ body {
 .sizeboxmainbox {
 
     margin: 0px;
-    padding: 0px 5px;
-    border: solid 1px #c7c7c7;
+   width: 48px;
+   height: 46px;
+    border: solid 1px #353535;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding-top: 12px;
+    align-items: center; 
+    padding: 10px 20px;
+    padding-top: 25px;
+   border-radius: 10px;
 }
 
 .sizeboxmainbox.active {
 
-    background-color: #e0e0e0;
-    color: #CC9966;
+ 
+    border: solid 1px #CC9966;
+    border-radius: 10px;
+    background-color: transparent;
 }
 
 .sizeboxmainbox p a {
@@ -2400,12 +2387,23 @@ body {
     cursor: pointer;
     font-size: 14px;
     color: #707070;
+
+}
+a .inact {
+
+    background-color: #eeeeee;
+    cursor: none;
+    text-decoration: none;
+    color: rgb(163, 163, 163);
+    border: solid 1px #afafaf;
+
 }
 
-.sizeboxmainbox p a.active {
+.px-5{
 
-    color: #CC9966;
-    background-color: transparent;
+    padding-right: 60px !important;
+  padding-left: 60px !important;
+
 }
 
 /*---------quantity----------*/
@@ -2478,6 +2476,7 @@ body {
     padding: 0px;
     display: flex;
     gap: 25px;
+    margin-top: 32px;
 }
 
 
@@ -2487,12 +2486,12 @@ body {
     padding: 0px;
 }
 
-
 .productextendaddtocart1 button {
 
     border: solid 1px #CC9966 !important;
     color: #333 !important;
     font-size: 14px;
+    padding: 15px 30px; 
 }
 
 .productextendaddtocart1 button:hover {
@@ -2577,6 +2576,7 @@ body {
 
     margin: 0px;
     padding: 0px;
+    margin-top: 30px;
 
 }
 
@@ -2613,6 +2613,33 @@ body {
     cursor: pointer;
     margin: 0px;
     padding: 0px;
+}
+
+
+.pl-20 {
+
+    padding-left: 40px;
+}
+
+
+
+.productdetailstext{
+
+    margin: 30px 0px;
+    padding: 0px;
+}
+
+.productdetailstext h5{
+
+    color: #707070;
+    font-size: 16px;
+}
+
+.productdetailstext p{
+
+   color: #707070;
+   font-size: 14px;
+
 }
 
 

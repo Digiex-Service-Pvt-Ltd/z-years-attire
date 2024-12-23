@@ -44,20 +44,20 @@ class ProductVarient extends Model
         )->with('attributes');
     }
 
-    public function singleColor()
-    {
-        return $this->hasOneThrough(
-            AttributeValue::class,
-            VarientAttribute::class,
-            'product_varient_id', // Foreign key on variant_attributes
-            'id',                 // Foreign key on attribute_values
-            'id',                 // Local key on product_variants
-            'attribute_value_id'  // Local key on variant_attributes
-        )
-        ->whereHas('attributes', function ($query) {
-            $query->where('id', 1);
-        });
-    }
+    // public function singleColor()
+    // {
+    //     return $this->hasOneThrough(
+    //         AttributeValue::class,
+    //         VarientAttribute::class,
+    //         'product_varient_id', // Foreign key on variant_attributes
+    //         'id',                 // Foreign key on attribute_values
+    //         'id',                 // Local key on product_variants
+    //         'attribute_value_id'  // Local key on variant_attributes
+    //     )
+    //     ->whereHas('attributes', function ($query) {
+    //         $query->where('id', 1);
+    //     });
+    // }
 
     
     // public function images()

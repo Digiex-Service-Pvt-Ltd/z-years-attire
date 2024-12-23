@@ -51,7 +51,6 @@
                             <option value="">Sort By : What's New</option>
                             <option value="">Most Popular</option>
                             <option value="">Most Rated </option>
-                            <option value="">Date </option>
                         </select>
                     </div>
                 </div>
@@ -84,7 +83,7 @@
                             <!-- ---- Category Section :: End --- -->
                         
                             <!-- -------- Product attributes section :: Start --------- -->
-                            @if($attributes->isNotEmpty())
+                            @if(!empty($attributes))
                                 @foreach($attributes as $attribute)
                                     
                                 @if($attribute->id == 1)
@@ -97,7 +96,6 @@
                                                         <div class="colorboxmain1">
                                                             <input type="checkbox" id="attr{{ $attribute_value->id }}" name="color[]" value="{{ $attribute_value->id }}" class="color" {{ (in_array($attribute_value->id, $selected_color)) ? 'checked="checked"' : "" }}>
                                                             <div style="background-color: {{ $attribute_value->hexa_color_code }}"></div>
-                                                            {{-- <p>{{ $attribute_value->value_name }}</p> --}}
                                                             <label for="attr{{ $attribute_value->id }}" class="text-secondary"> {{ $attribute_value->value_name }}
                                                         </div>
                                                     </div>
@@ -116,7 +114,6 @@
                                                         <li class="mt-20down">
                                                             <div class="sizeboxmain1">
                                                                 <input type="checkbox" id="attr{{ $attribute_value->id }}" name="size[]" value="{{ $attribute_value->id }}" class="size" {{ (in_array($attribute_value->id, $selected_size)) ? 'checked="checked"' : "" }}>
-                                                                {{-- <p><a href="#">{{ $attribute_value->value_name }}</a></p> --}}
                                                                 <label for="attr{{ $attribute_value->id }}" class="text-secondary"> {{ $attribute_value->value_name }}
                                                             </div>
                                                         </li>
@@ -168,7 +165,7 @@
                                             <div class="categoriesrightbox">
                                                 <div class="categoriesrightboximg">
                                                     <div class="categoriesrightboximg1">
-                                                        <img src="{{ asset($p_image_path) }}" alt="" class="img-fluid">
+                                                        <a href="{{ url('product/'.$varient_product->products->slug.'/'.$varient_product->id) }}"><img src="{{ $p_image_path }}" alt="" class="img-fluid"></a>
 
                                                         <div class="categoriesrightboximg1addtocart">
                                                             <i class="fa-solid fa-cart-shopping"></i>
@@ -186,7 +183,7 @@
                                                             {{ $attrArr->attributes->attribute_name }} : {{ $attrArr->value_name }}
                                                         @endforeach
                                                     </h5>
-                                                    <h6>{{ $varient_product->variant_name }}</h6>
+                                                    <a href="{{ url('product/'.$varient_product->products->slug.'/'.$varient_product->id) }}"><h6>{{ $varient_product->variant_name }}</h6></a>
                                                     <p><i class="fa-solid fa-indian-rupee-sign"></i> {{ $varient_product->price }}</p>
 
                                                 </div>
@@ -211,7 +208,7 @@
                                                         <div class="categoriesrightbox">
                                                             <div class="categoriesrightboximg">
                                                                 <div class="categoriesrightboximg1">
-                                                                    <img src="{{ asset($p_image_path) }}" alt="" class="img-fluid">
+                                                                    <a href="{{ url('product/'.$product->slug.'/'.$variant->id) }}"><img src="{{ $p_image_path }}" alt="" class="img-fluid"></a>
 
                                                                     <div class="categoriesrightboximg1addtocart">
                                                                         <i class="fa-solid fa-cart-shopping"></i>
@@ -229,7 +226,7 @@
                                                                         {{ $attrArr->attributes->attribute_name }} : {{ $attrArr->value_name }}
                                                                     @endforeach
                                                                 </h5>
-                                                                <h6>{{ $variant->variant_name }} </h6>
+                                                                <a href="{{ url('product/'.$product->slug.'/'.$variant->id) }}"><h6>{{ $variant->variant_name }} </h6></a>
                                                                 <p><i class="fa-solid fa-indian-rupee-sign"></i> {{ $variant->price }}</p>
 
                                                             </div>

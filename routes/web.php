@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AttributeValueController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ItemController;
 
 
 /*
@@ -26,6 +27,7 @@ use App\Http\Controllers\ShopController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('shop/{category_slug}', [ShopController::class, 'index']);
+Route::get('product/{product_slug}/{varient_id}', [ItemController::class, 'item_details']);
 
 
 //Routes for user
