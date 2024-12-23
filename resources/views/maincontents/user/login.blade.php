@@ -1,16 +1,15 @@
 @extends('layouts.home_layout');
 
 @section('maincontent')
-<main class="loginbody">
-
+<main id="main">
     <div class="container">
       <div class="row">
           <div class="col-lg-12">
               <div class="loginbox">
                   <div class="loginboxmain">
-                      <div class="loginboxmainlogo">
+                      {{-- <div class="loginboxmainlogo">
                           <img src="{{ asset('img/logo1.png') }}" alt="" class="img-fluid" style="width: 100px;">
-                      </div>
+                      </div> --}}
                       <div class="loginboxmainlogin">
                           <h4>Welcome</h4>
                           <div class="loginboxmainloginform">

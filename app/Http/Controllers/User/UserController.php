@@ -62,11 +62,11 @@ class UserController extends Controller
         return redirect()->route('user.login');
     }
 
-    public function userPassword(){
+    public function user_password(){
         return view('maincontents.user.passwordchange');
     }
 
-    public function passwordChange(Request $request){
+    public function password_change(Request $request){
         $request->validate([
             'old_password' => 'required|string|min:6',
             'new_password' => 'required|string|min:6|max:15|confirmed',
