@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="{{ asset('admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('admin/css/adminlte.min.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('admin/css/style.css') }}">
 </head>
 <body class="hold-transition login-page">
 {{-- <div class="login-box">
@@ -84,15 +86,19 @@
           <div class="adminbody">
               <div class="adminbodycolor">
                   <div class="row">
-                      <div class="col-lg-7 ">
+                      <div class="col-lg-7 px-0">
                           <div class="adminbodycolorleft">
                         
                           </div>
                       </div>
-                      <div class="col-lg-5 ">
+                      <div class="col-lg-5 px-0">
                           <div class="adminbodycolorright">
+                            <div class="adminbodycolorright1">
                               <div class="adminbodycolorrightimg">
-                                  <img src="{{ asset('img/logo1.png') }}" alt="" class="img-fluid">
+                                  {{-- <img src="{{ asset('img/logo1.png') }}" alt="" class="img-fluid"> --}}
+
+                                  <h2>Welcome to Control Panel</h2>
+                                  <p class="text-secondary">Login with valid credentials to access your private panel.</p>
                               </div>
                               <div class="adminbodycolorrightform">
                                 @if( Session::has('error') )
@@ -115,16 +121,9 @@
                                         <div class="text-center">{{ session()->get('msg') }}</div>
                                       @endif
                                   </form>
-                                  <div class="forgetpassword">
-                                      <div class="forgetpassword1">
-                                          <p><a href="">Forget Password?</a></p>
-                                      </div>
-                                      <div class="forgetpasswordsighnup">
-                                          <button type="button" class="btn btn-outline-secondary">Sign Up</button>
-                                      </div>
-
                                   </div>
                               </div>
+                          </div>
                           </div>
                       </div>
                   </div>

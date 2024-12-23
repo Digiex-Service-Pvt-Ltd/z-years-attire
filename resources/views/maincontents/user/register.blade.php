@@ -1,7 +1,7 @@
 @extends('layouts.home_layout');
 
 @section('maincontent')
-  <main class="loginbody">
+  <main id="main">
     <div class="container">
       <div class="row">
           <div class="col-lg-12">

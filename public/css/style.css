@@ -2676,6 +2676,7 @@ a .inact {
     width: 100%;
     max-width: 400px;
     background-color: white;
+   border: solid 1px #000;
     box-shadow: 6px 6px 6px rgba(192, 192, 192, 0.534);
 }
 
